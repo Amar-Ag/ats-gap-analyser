@@ -26,7 +26,7 @@ Describe what the AI system does and a typical interaction. What does the user p
 
 5. Start Jupyter:
 
-       uv run jupyter lab
+       uv run jupyter notebook
 
 ## Notebooks
 
