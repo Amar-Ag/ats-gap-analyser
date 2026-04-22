@@ -1,0 +1,21 @@
+{
+  "name": "ATS Gap Analyser",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "tamasfe.even-better-toml"
+      ]
+    }
+  },
+  "postStartCommand": "uv sync",
+  "remoteEnv": {
+    "GROQ_API_KEY": "${localEnv:GROQ_API_KEY}"
+  }
+}

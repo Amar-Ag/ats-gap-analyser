@@ -1,7 +1,7 @@
 [project]
-name = "ai-buildcamp-project"
+name = "ats-gap-analyser"
 version = "0.1.0"
-description = "My AI Engineering Buildcamp project"
+description = "AI agent that analyses CV and job description fit, identifies ATS gaps, and generates improvement suggestions"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

@@ -1,38 +1,35 @@
-# Your Project Name
+# ATS Gap Analyser
 
-A starter template for the AI Engineering Buildcamp capstone. Replace this README with a description of your own project.
+## Problem
 
-## The Problem
-
-Describe the problem your project solves and who has it. One or two sentences.
+Job seekers apply to roles and hear nothing back. They don't know if 
+their CV failed ATS screening, lacked the right keywords, or simply 
+didn't match the role — so they can't improve their applications.
 
 ## What It Does
 
-Describe what the AI system does and a typical interaction. What does the user provide? What does the system return?
+The ATS Gap Analyser takes a CV (PDF) and a job description (text) 
+and returns:
+
+- A match score showing how well the CV fits the role
+- A list of missing keywords and skills the JD requires
+- Specific, actionable CV improvement suggestions
+- A tailored cover letter for the role
+
+## Typical Interaction
+
+**Input:** Upload your CV as a PDF + paste a job description  
+**Output:** Gap report with match score, missing skills, improvement 
+suggestions, and a cover letter
 
 ## Setup
 
-1. Install uv if you don't have it yet: https://docs.astral.sh/uv/getting-started/installation/
-
-2. Clone this repository (or download the zip and extract it).
-
-3. Create a `.env` file from the template and add your API key:
-
-       cp .env.example .env
-
-4. Install dependencies:
-
-       uv sync
-
-5. Start Jupyter:
-
-       uv run jupyter notebook
+1. Clone the repo
+2. Copy `.env.example` to `.env` and add your `GROQ_API_KEY`
+3. Run `uv sync` to install dependencies
+4. Open notebooks in Jupyter
 
 ## Notebooks
 
-- `notebooks/01-setup.ipynb` - smoke test that confirms your environment works
-- `notebooks/02-rag.ipynb` - a minimal RAG baseline you can adapt to your own data
-
-## Data
-
-Put your project data in the `data/` folder. See `notebooks/02-rag.ipynb` for how to load it.
+- `notebooks/01-setup.ipynb` — verify environment
+- `notebooks/02-rag.ipynb` — RAG pipeline over ATS best practices data
