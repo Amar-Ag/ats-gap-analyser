@@ -51,12 +51,29 @@ def run_agent(user_message: str):
     
     while True:
         response = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+            model="llama-3.3-70b-versatile",
             messages=messages,
             tools=tools,
         )
         
         choice = response.choices[0]
+        
+        # handle groq <function=> bug
+        if choice.finish_reason == "stop" and choice.message.content and "<function=" in choice.message.content:
+            import re
+            match = re.search(r'<function=(\w+)[,>]({.*?})', choice.message.content, re.DOTALL)
+            if match:
+                name = match.group(1)
+                args = json.loads(match.group(2))
+                result = run_tool(name, args)
+                messages.append(choice.message)
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": "recovered",
+                    "content": json.dumps(result)
+                })
+                continue
+
         messages.append(choice.message)
         
         if choice.finish_reason == "stop":
@@ -66,10 +83,8 @@ def run_agent(user_message: str):
             for tool_call in choice.message.tool_calls:
                 name = tool_call.function.name
                 args = json.loads(tool_call.function.arguments)
-                
                 print(f"Calling tool: {name}")
                 result = run_tool(name, args)
-                
                 messages.append({
                     "role": "tool",
                     "tool_call_id": tool_call.id,
