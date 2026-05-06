@@ -127,3 +127,25 @@ def test_criteria(sample_cv, sample_jd):
     ]
 
     assert_criteria(result, criteria)
+
+
+def test_out_of_scope():
+    """Agent should not call ATS tools for unrelated questions"""
+    called_tools = []
+    import src.agent.agent as agent_module
+    original_run_tool = agent_module.run_tool
+
+    def tracking_run_tool(name, args):
+        called_tools.append(name)
+        return original_run_tool(name, args)
+
+    agent_module.run_tool = tracking_run_tool
+
+    try:
+        agent_module.run_agent(
+            f"What's the weather today?"
+        )
+    finally:
+        agent_module.run_tool = original_run_tool
+    
+    assert len(called_tools) == 0
