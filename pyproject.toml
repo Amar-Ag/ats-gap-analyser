@@ -9,5 +9,6 @@ dependencies = [
     "jupyter>=1.0.0",
     "minsearch>=0.0.5",
     "openai>=1.50.0",
+    "pytest>=9.0.3",
     "python-dotenv>=1.0.0",
 ]

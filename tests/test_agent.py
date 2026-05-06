@@ -1,0 +1,75 @@
+import pytest
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
+
+@pytest.fixture
+def sample_cv():
+    sample_cv = """
+    John Smith
+    Data Analyst | john@email.com
+
+    EXPERIENCE
+    Senior Data Analyst - ABC Corp (2021-Present, 3 years)
+    - Built SQL queries to analyse customer data
+    - Created Power BI dashboards for operations team
+    - Used Python and pandas for data cleaning
+
+    Junior Analyst - XYZ Ltd (2019-2021)
+    - Supported reporting using Excel and SQL
+
+    SKILLS
+    SQL, Python, pandas, Excel, Power BI, data visualisation
+
+    EDUCATION
+    BSc Statistics - University of Manchester (2019)
+    """
+    return sample_cv
+
+@pytest.fixture
+def sample_jd():
+    sample_jd = """
+    Data Analyst at a Logistics Company
+
+    We are looking for a Data Analyst with 3+ years of experience.
+
+    Required:
+    - Strong SQL skills
+    - Python for data analysis (pandas, numpy)
+    - Power BI or Tableau for dashboards
+    - Experience with logistics or supply chain data
+
+    Nice to have:
+    - dbt experience
+    - Azure or AWS
+    - Freight industry knowledge
+    """
+    return sample_jd
+
+def test_tool_call_order(sample_cv, sample_jd):
+    """Agent must call all four tools in the correct sequence"""
+    called_tools = []
+
+    import src.agent.agent as agent_module
+    original_run_tool = agent_module.run_tool
+
+    def tracking_run_tool(name, args):
+        called_tools.append(name)
+        return original_run_tool(name, args)
+
+    agent_module.run_tool = tracking_run_tool
+
+    try:
+        agent_module.run_agent(
+            f"Analyse my CV against this job description.\nCV:\n{sample_cv}\nJD:\n{sample_jd}"
+        )
+    finally:
+        agent_module.run_tool = original_run_tool
+
+    assert "extract_job_requirements" in called_tools
+    assert "score_cv" in called_tools
+    assert "suggest_improvements" in called_tools
+    assert "generate_cover_letter" in called_tools
+
+    assert called_tools.index("extract_job_requirements") < called_tools.index("score_cv")
+    assert called_tools.index("score_cv") < called_tools.index("suggest_improvements")
