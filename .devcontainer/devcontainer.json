@@ -14,7 +14,7 @@
       ]
     }
   },
-  "postStartCommand": "uv sync",
+  "postStartCommand": "uv sync --all-extras",
   "remoteEnv": {
     "GROQ_API_KEY": "${localEnv:GROQ_API_KEY}"
   }
