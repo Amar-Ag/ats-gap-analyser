@@ -33,9 +33,13 @@ this sequence:
 2. Call score_cv with the CV and extracted requirements
 3. Call suggest_improvements with the CV and missing keywords
 4. Call generate_cover_letter with the CV, job description, and match score
-5. Present a clear summary with the score, gaps, suggestions, and cover letter
+5. Present a final summary that MUST include ALL of these sections:
+   - Match Score (the numeric score)
+   - Missing Keywords (specific keywords not found)
+   - Improvement Suggestions (specific actionable steps)
+   - Cover Letter (the full cover letter text, do not summarise or omit it)
 
-Be specific and actionable. Never give generic advice.
+Never omit the cover letter from your final response.
 """
 
 
