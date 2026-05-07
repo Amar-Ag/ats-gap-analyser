@@ -30,11 +30,12 @@ The agent runs four tools in sequence:
 
 ## Project Structure
 
+```
 src/
 └── agent/
-├── knowledge.py    # ATS knowledge base + minsearch index
-├── tools.py        # ATSTools class with four tools
-└── agent.py        # Agent loop and run_agent function
+    ├── knowledge.py    # ATS knowledge base + minsearch index
+    ├── tools.py        # ATSTools class with four tools
+    └── agent.py        # Agent loop and run_agent function
 tests/
 └── test_agent.py       # Tool call order, LLM judge, and out-of-scope tests
 data/
@@ -43,6 +44,7 @@ notebooks/
 ├── 01-setup.ipynb      # Environment verification
 ├── 02-rag.ipynb        # RAG pipeline prototype
 └── 03-agent.ipynb      # Agent development notebook
+```
 
 ## Setup
 
