@@ -14,7 +14,7 @@
       ]
     }
   },
-  "postStartCommand": "uv sync --all-extras",
+  "postStartCommand": "uv sync --all-extras && echo 'source /workspaces/ats-gap-analyser/.venv/bin/activate' >> ~/.bashrc",
   "remoteEnv": {
     "GROQ_API_KEY": "${localEnv:GROQ_API_KEY}"
   }
