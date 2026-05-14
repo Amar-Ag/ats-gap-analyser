@@ -1,11 +1,11 @@
 import json
 import os
 import logfire
-
+import re
 
 
 from dotenv import load_dotenv
-from groq import Groq
+from groq import Groq, BadRequestError
 from src.agent.tools import ATSTools, get_instance_tools
 from src.agent.knowledge import index
 
@@ -58,13 +58,25 @@ def run_agent(user_message: str):
             {"role": "user", "content": user_message}
         ]
         
+        retry_count = 0
+
         while True:
-            response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=messages,
-                tools=tools,
-            )
-            
+            try:
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=messages,
+                    tools=tools,
+                )
+            except BadRequestError as e:
+                if 'tool_use_failed' in str(e) and retry_count < 3:
+                    messages.append({
+                        "role": "user",
+                        "content": "Please try again using the tools one at a time in the correct sequence."
+                    })
+                    retry_count += 1
+                    continue
+                raise
+
             choice = response.choices[0]
 
             if hasattr(response, 'usage') and response.usage:
@@ -77,7 +89,6 @@ def run_agent(user_message: str):
             
             # handle groq <function=> bug
             if choice.finish_reason == "stop" and choice.message.content and "<function=" in choice.message.content:
-                import re
                 match = re.search(r'<function=(\w+)[,>]({.*?})', choice.message.content, re.DOTALL)
                 if match:
                     name = match.group(1)

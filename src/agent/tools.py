@@ -104,16 +104,24 @@ class ATSTools:
         schema = CVScore.model_json_schema()
         
         rubric = """
-    Score the CV using this exact rubric:
-    - Start at 100
-    - Subtract 10 points for each required skill missing from the CV
-    - Subtract 15 points if experience years in CV is less than required
-    - Subtract 5 points for each important keyword missing
-    - Minimum score is 0
+        Score the CV using this exact rubric:
+        - Start at 100
+        - Subtract 10 points for each required skill missing from the CV
+        - Subtract 15 points if experience years in CV is less than required
+        - Subtract 5 points for each important keyword missing
+        - Minimum score is 0
 
-    Be strict and literal — only count a skill as present if it is 
-    explicitly mentioned in the CV text. Do not infer or assume.
-    """
+        OR CONDITIONS: If the JD says "X or Y", the requirement is met if 
+        the CV has EITHER X or Y. Do not subtract points for the missing option.
+
+        PHRASING: Match skills conceptually not just literally:
+        - "Managed £500k budget" satisfies "budget management"
+        - "Created Power BI dashboards" satisfies "data visualisation"
+        - "Python (basic)" satisfies "Python"
+        - Match the concept, not the exact words.
+
+        Be strict on required skills but flexible on phrasing variations.
+        """
         
         response = self.client.chat.completions.create(
             model="llama-3.3-70b-versatile",
@@ -144,7 +152,15 @@ class ATSTools:
         response = self.client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
-                {"role": "system", "content": "Generate specific actionable CV improvement suggestions. Return a JSON object with a single key 'suggestions' containing a list of strings. Be specific not generic."},
+                {"role": "system", "content": """Generate specific actionable CV improvement suggestions based on missing keywords.
+                    Rules:
+                    - Only suggest adding keywords that are genuinely missing from the CV
+                    - If a skill is present in the CV but phrased differently (e.g. 'Managed £500k budget' covers 'budget management'), do NOT suggest adding it
+                    - If the JD has OR conditions (e.g. 'Power BI or Tableau') and the CV has one of them, do NOT suggest adding the other
+                    - Be specific not generic — reference actual keywords from the missing list
+                    - Base suggestions on the ATS best practices context provided
+
+                    Return a JSON object with a single key 'suggestions' containing a list of strings."""},
                 {"role": "user", "content": f"Missing keywords: {missing_keywords}\n\nATS Best Practices:\n{context}\n\nCV:\n{cv_text}\n\nGenerate 4-5 specific suggestions."}
             ],
             response_format={"type": "json_object"},
