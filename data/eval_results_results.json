@@ -6,9 +6,14 @@
     "jd": "\nSenior Data Analyst - E-commerce Company\nRequired: Strong SQL, Python (pandas, numpy), Power BI or Tableau, dbt, AWS\nNice to have: Retail domain knowledge, data pipeline tools\n3+ years experience required\n",
     "result": "Here's a summary of your CV analysis:\n\n**Match Score:** 90\n\n**Missing Keywords:** Retail domain knowledge, data pipeline tools, numpy\n\n**Improvement Suggestions:**\n1. Add 'Retail domain knowledge' to the Skills section to match the job description and increase the CV's relevance to retail industry roles.\n2. Include 'data pipeline tools' in the Skills section, specifically mentioning experience with tools like Apache Beam or Apache Airflow to enhance the CV's technical appeal.\n3. Emphasize experience with data pipeline maintenance in the Senior Data Analyst role by mentioning specific data pipeline tools used, such as Apache Airflow or AWS Glue.\n4. Expand the Skills section to include specific data engineering skills like data warehousing, ETL, and data modeling to align with the job description's technical requirements.\n5. Consider adding relevant certifications or courses related to retail analytics or data engineering to the Education section to demonstrate expertise and commitment to the field.\n\n**Cover Letter:**\nI am excited to apply for the Senior Data Analyst position at the E-commerce Company because the job description aligns perfectly with my current role and skills. With over 3 years of experience in data analysis, I am confident that I can leverage my expertise to drive business growth and inform data-driven decisions.\n\nAs a Senior Data Analyst at RetailCo, I have developed strong technical skills in SQL, Python, and data visualization tools such as Power BI. I have successfully built complex SQL queries to analyze customer purchasing patterns, created interactive dashboards, and maintained ETL pipelines using Python and pandas. My experience with dbt models and AWS has also enabled me to optimize reporting layers and data warehousing. My achievements demonstrate a strong match with the job requirements, and I am eager to bring my expertise to the E-commerce Company.\n\nI would welcome the opportunity to discuss how my skills and experience align with the company's goals. Please feel free to contact me at sarah.chen@email.com to arrange a conversation. I am confident that my strong technical foundation, combined with my retail domain knowledge, make me an ideal candidate for this role. I look forward to the opportunity to contribute to the E-commerce Company's success.",
     "status": "success",
-    "label": "good",
-    "comments": "The agent flagged \"Retail domain knowledge\" as missing but then the cover letter says \"my retail domain knowledge\"",
-    "failure_category": ""
+    "label": "bad",
+    "comments": "Numpy is in skills but still said missing. The agent flagged \"Retail domain knowledge\" as missing but then the cover letter says \"my retail domain knowledge\"",
+    "failure_category": "",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent failed to identify the correct match score and incorrectly flagged numpy as missing. Additionally, the agent failed to recognize the correct phrasing of 'data pipeline tools' in the CV.",
+      "failure_category": "wrong_score"
+    }
   },
   {
     "name": "happy_clear_gaps",
@@ -19,7 +24,12 @@
     "status": "success",
     "label": "bad",
     "comments": "The JD says \"Power BI or Tableau\" \u2014 John has Power BI so that requirement is met. The agent penalised him for not having Tableau even though it's an either/or requirement.",
-    "failure_category": "wrong_score"
+    "failure_category": "wrong_score",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent incorrectly flagged 'logistics experience' as missing, despite it being mentioned in the CV. Additionally, the score is 15 points off from what the alignment warrants.",
+      "failure_category": "phrasing_mismatch, wrong_score"
+    }
   },
   {
     "name": "happy_tech_role",
@@ -30,7 +40,12 @@
     "status": "success",
     "label": "bad",
     "comments": "agent hallucinated missing keywords not in JD (Cloud, FinTech)",
-    "failure_category": "wrong_score"
+    "failure_category": "wrong_score",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent incorrectly identified 'FinTech' as a missing keyword, which is not present in the job description. Additionally, the agent incorrectly identified 'Cloud' as a missing keyword, which is not present in the job description. The agent also incorrectly suggested adding 'Cloud' to the Skills section, as it is not a required skill. The agent's match score is also incorrect, as the CV meets all the required skills.",
+      "failure_category": "hallucination"
+    }
   },
   {
     "name": "happy_marketing_to_marketing",
@@ -41,7 +56,12 @@
     "status": "success",
     "label": "bad",
     "comments": "budget management already present in CV as 'Managed \u00a3500k annual marketing budget' \u2014 agent failed to match across phrasing.",
-    "failure_category": "missed_key_gap"
+    "failure_category": "missed_key_gap",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent failed to identify the 'budget management' requirement as met due to the specific amount (\u00a3500k) mentioned in the CV. Additionally, the agent suggested adding 'budget management' to the Skills section, which is already present. The agent also suggested including the specific amount in the Skills section, which is not necessary.",
+      "failure_category": "phrasing_mismatch"
+    }
   },
   {
     "name": "happy_finance_role",
@@ -52,7 +72,12 @@
     "status": "success",
     "label": "good",
     "comments": "",
-    "failure_category": ""
+    "failure_category": "",
+    "judge_result": {
+      "label": "good",
+      "reasoning": "The agent's response is accurate and provides a reasonable analysis of the CV against the job description. The missing keywords list is empty, indicating that all required keywords are present in the CV. The match score is high (95), suggesting that the CV meets most of the job requirements. The improvement suggestions are relevant and provide actionable advice for the candidate to improve their CV. The cover letter is well-written and effectively highlights the candidate's skills and experience.",
+      "failure_category": ""
+    }
   },
   {
     "name": "happy_partial_match",
@@ -63,7 +88,12 @@
     "status": "success",
     "label": "good",
     "comments": "",
-    "failure_category": ""
+    "failure_category": "",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent incorrectly flagged AWS, GCP, and Azure as missing keywords, despite Maria mentioning 'Snowflake' in her CV, which is a cloud-based data warehouse. This is a phrasing_mismatch failure. Additionally, the agent's improvement suggestions are overly broad and not directly related to the job description.",
+      "failure_category": "phrasing_mismatch"
+    }
   },
   {
     "name": "happy_recent_graduate",
@@ -74,7 +104,12 @@
     "status": "success",
     "label": "bad",
     "comments": "\"Willingness to learn\" is not a keyword \u2014 it's a soft descriptor in the JD. ",
-    "failure_category": "hallucination"
+    "failure_category": "hallucination",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent incorrectly flagged 'willingness to learn' as a missing keyword, despite it being mentioned in the CV. Additionally, the agent suggested adding 'agile development methodologies' and 'version control systems' to the Skills section, which are not mentioned in the JD. The agent also suggested rephrasing bullet points to highlight soft skills, but this is a general best practice and not a hallucination.",
+      "failure_category": "hallucination"
+    }
   },
   {
     "name": "happy_project_manager",
@@ -85,7 +120,12 @@
     "status": "success",
     "label": "good",
     "comments": "",
-    "failure_category": ""
+    "failure_category": "",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent incorrectly flagged 'financial services experience' as missing, despite the CV mentioning 'FTSE 100 clients' and 'financial services sector'. This is a phrasing_mismatch failure.",
+      "failure_category": "phrasing_mismatch"
+    }
   },
   {
     "name": "happy_logistics_domain",
@@ -96,7 +136,12 @@
     "status": "success",
     "label": "bad",
     "comments": "JD says \"Power BI or Tableau\" and Amar has Power BI. Should be 90+. Also the response format is messy \u2014 it shows the step-by-step reasoning instead of a clean summary.",
-    "failure_category": "wrong_score"
+    "failure_category": "wrong_score",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent failed to identify the 'Power BI or Tableau' requirement as met, instead listing Tableau as a missing keyword. Additionally, the agent's score of 85 is reasonable given the matched keywords, but the suggestions for improvement are not directly related to the missing keyword.",
+      "failure_category": "or_condition_bug"
+    }
   },
   {
     "name": "happy_data_science",
@@ -105,9 +150,14 @@
     "jd": "\nData Scientist - E-commerce Platform\nRequired: Python, scikit-learn or similar ML libraries, SQL, AWS or GCP\nNice to have: XGBoost, model deployment experience, e-commerce domain\n3+ years experience required\n",
     "result": "Here is a final summary of your CV against the job description:\n**Match Score:** 90\n**Missing Keywords:** GCP, e-commerce domain\n**Improvement Suggestions:**\n1. Add 'GCP' to the Skills section to match the missing keyword from the job description\n2. Include 'e-commerce domain' in the Experience section to demonstrate relevant industry experience\n3. Replace 'EXPERIENCE' with 'Work Experience' to use a standard section heading that ATS can recognise\n4. Remove any complex formatting and save the CV as a plain .docx or PDF to ensure ATS compatibility\n5. Consider adding 'Google Cloud Platform' or 'GCP' to the Skills section to further match the missing keyword and demonstrate cloud computing skills\n**Cover Letter:**\n\"I am excited to apply for the Data Scientist position at the E-commerce Platform because the job description aligns perfectly with my experience and skills as a Data Scientist at RetailCo. With over 4 years of experience in building machine learning models, I am confident in my ability to drive business growth through data-driven decisions.\n\nMy achievements in demand forecasting, using Python, scikit-learn, and XGBoost, have resulted in a 23% improvement in RMSE. I have also successfully deployed models to production using Flask and AWS SageMaker, demonstrating my capability in model deployment. My experience collaborating with engineering teams on feature pipelines has equipped me with the skills to work effectively in a cross-functional team. I am excited about the opportunity to bring my expertise to the E-commerce Platform and contribute to the development of predictive models that drive business success.\n\nI would welcome the opportunity to discuss how my skills and experience align with the requirements of the Data Scientist role. Please do not hesitate to contact me at yuki@email.com to arrange a conversation. I look forward to the opportunity to discuss how I can make a meaningful contribution to the E-commerce Platform team.\"",
     "status": "success",
-    "label": "good",
+    "label": "bad",
     "comments": "JD says \"AWS or GCP\" and Yuki has AWS, so GCP being listed as missing is the same OR condition bug.",
-    "failure_category": ""
+    "failure_category": "missed_key_gap",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent failed to identify the correct missing keywords and provided incorrect improvement suggestions. The agent incorrectly flagged 'e-commerce domain' as missing, when it is actually mentioned in the cover letter. Additionally, the agent suggested replacing 'EXPERIENCE' with 'Work Experience', which is not necessary and may not be relevant to the ATS analysis.",
+      "failure_category": "hallucination"
+    }
   },
   {
     "name": "varied_same_cv_different_jd_1",
@@ -118,7 +168,12 @@
     "status": "success",
     "label": "good",
     "comments": "",
-    "failure_category": ""
+    "failure_category": "",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent incorrectly flagged 'data visualisation' as missing, despite it being mentioned in the CV. Additionally, the score is 5 points off from what the alignment warrants.",
+      "failure_category": "phrasing_mismatch, wrong_score"
+    }
   },
   {
     "name": "varied_same_cv_different_jd_2",
@@ -323,7 +378,12 @@
     "status": "success",
     "label": "good",
     "comments": "",
-    "failure_category": ""
+    "failure_category": "",
+    "judge_result": {
+      "label": "good",
+      "reasoning": "The agent correctly refused to analyze the input as it is not a CV/JD analysis request. The response suggests alternative ways to get news updates, which is a reasonable refusal.",
+      "failure_category": ""
+    }
   },
   {
     "name": "oos_math",
