@@ -11,6 +11,7 @@ class JobRequirements(BaseModel):
     nice_to_have_skills: List[str]
     experience_years: int
     keywords: List[str]
+    or_conditions: List[str]  # e.g. ["Power BI or Tableau", "AWS or GCP"]
 
 
 class CVScore(BaseModel):
@@ -91,7 +92,15 @@ class ATSTools:
         response = self.client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
-                {"role": "system", "content": f"Extract structured requirements from a job description. Return only a JSON object matching this schema: {schema}. Return only the JSON, no other text."},
+                {"role": "system", "content": f"""Extract structured requirements from a job description.
+
+                For OR conditions like "Power BI or Tableau" or "AWS or GCP":
+                - Add BOTH individual skills to required_skills
+                - Also add the full OR phrase to or_conditions (e.g. "Power BI or Tableau")
+
+                This allows the scorer to know which skills are interchangeable alternatives.
+
+                Return only a JSON object matching this schema: {schema}. Return only the JSON, no other text."""},
                 {"role": "user", "content": job_description}
             ],
             response_format={"type": "json_object"},
@@ -103,25 +112,31 @@ class ATSTools:
         """Scores a CV against job requirements and identifies matched and missing keywords"""
         schema = CVScore.model_json_schema()
         
-        rubric = """
-        Score the CV using this exact rubric:
-        - Start at 100
-        - Subtract 10 points for each required skill missing from the CV
-        - Subtract 15 points if experience years in CV is less than required
-        - Subtract 5 points for each important keyword missing
-        - Minimum score is 0
+        or_conditions = requirements.get('or_conditions', [])
+        or_conditions_text = "\n".join(f"- {c}" for c in or_conditions) if or_conditions else "None"
+        or_conditions_warning = ""
+        if or_conditions:
+            or_conditions_warning = "\n\nCRITICAL - These are OR conditions. Do NOT list the alternative in missing_keywords:\n" + "\n".join(f"- {c}" for c in or_conditions)
+        
+        rubric = f"""
+    Score the CV using this exact rubric:
+    - Start at 100
+    - Subtract 10 points for each required skill missing from the CV
+    - Subtract 15 points if experience years in CV is less than required
+    - Subtract 5 points for each important keyword missing
+    - Minimum score is 0
 
-        OR CONDITIONS: If the JD says "X or Y", the requirement is met if 
-        the CV has EITHER X or Y. Do not subtract points for the missing option.
+    OR CONDITIONS (having EITHER option satisfies the requirement — do NOT penalise for the missing one):
+    {or_conditions_text}
 
-        PHRASING: Match skills conceptually not just literally:
-        - "Managed £500k budget" satisfies "budget management"
-        - "Created Power BI dashboards" satisfies "data visualisation"
-        - "Python (basic)" satisfies "Python"
-        - Match the concept, not the exact words.
+    PHRASING: Match skills conceptually not just literally:
+    - "Managed £500k budget" satisfies "budget management"
+    - "Created Power BI dashboards" satisfies "data visualisation"
+    - "Python (basic)" satisfies "Python"
+    - Match the concept, not the exact words.
 
-        Be strict on required skills but flexible on phrasing variations.
-        """
+    Be strict on required skills but flexible on phrasing variations.
+    """
         
         response = self.client.chat.completions.create(
             model="llama-3.3-70b-versatile",
@@ -129,12 +144,21 @@ class ATSTools:
                 {
                     "role": "system",
                     "content": f"""You are an ATS scoring system. {rubric}
+
+    CRITICAL RULE FOR missing_keywords:
+    Only include a keyword in missing_keywords if it is BOTH:
+    1. Explicitly required in the JD (not nice-to-have)
+    2. Genuinely absent from the CV (not just phrased differently)
+
+    Do NOT include OR condition alternatives in missing_keywords.
+    If JD says "Power BI or Tableau" and CV has Power BI, do NOT list Tableau as missing.
+
     Return only a JSON object matching this schema: {schema}
     Return only the JSON, no other text."""
                 },
                 {
                     "role": "user",
-                    "content": f"CV:\n{cv_text}\n\nRequirements:\n{json.dumps(requirements, indent=2)}"
+                    "content": f"CV:\n{cv_text}\n\nRequirements:\n{json.dumps(requirements, indent=2)}{or_conditions_warning}"
                 }
             ],
             response_format={"type": "json_object"},
