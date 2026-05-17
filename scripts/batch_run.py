@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 load_dotenv(override=True)
 
 from src.agent.agent import run_agent
+import src.agent.agent as agent_module
 
 sessions = [
     # ---- HAPPY PATH (10) ----
@@ -920,14 +921,12 @@ def save_results(sessions):
 def run_sessions():
     existing = load_existing_results()
     
-    # find which sessions still need running
     pending = []
     for session in sessions:
         name = session['name']
         if name in existing and existing[name].get('status') == 'success':
             print(f"Skipping {name} — already completed")
-            session['result'] = existing[name]['result']
-            session['status'] = 'success'
+            session.update(existing[name])
         else:
             pending.append(session)
     
@@ -938,7 +937,6 @@ def run_sessions():
         print(f"--- {session['name']} ({session['category']}) ---")
         
         try:
-            # truncate to reduce token usage
             cv_text = session['cv'][:1500] if session['cv'] else ""
             jd_text = session['jd'][:800] if session['jd'] else ""
             
@@ -958,20 +956,35 @@ def run_sessions():
             completed += 1
             
         except Exception as e:
-            session['result'] = f"ERROR: {str(e)}"
-            session['status'] = 'error'
-            print(f"ERROR: {e}")
-            
-            # stop if rate limited
-            if '429' in str(e):
-                print("\nRate limit hit — saving progress and stopping")
-                save_results(sessions)
-                print(f"Completed {completed} new sessions this run")
-                return
+            if 'tokens per day' in str(e):
+                print("Daily token limit — switching to HuggingFace and retrying")
+                import src.agent.agent as agent_module
+                agent_module.client = agent_module.hf_client
+                agent_module.ats_tools.client = agent_module.hf_client
+                # retry this session
+                try:
+                    result = run_agent(message)
+                    session['result'] = result
+                    session['status'] = 'success'
+                    print(f"Result preview: {result[:150]}")
+                    completed += 1
+                except Exception as e2:
+                    session['result'] = f"ERROR: {str(e2)}"
+                    session['status'] = 'error'
+                    print(f"ERROR on retry: {e2}")
+            elif '429' in str(e):
+                # TPM - just save and continue, agent handles it
+                session['result'] = f"ERROR: {str(e)}"
+                session['status'] = 'error'
+                print(f"ERROR: {e}")
+            else:
+                session['result'] = f"ERROR: {str(e)}"
+                session['status'] = 'error'
+                print(f"ERROR: {e}")
         
-        save_results(sessions)  # save after every session
-        print(f"Saved. Sleeping 5 seconds...")
-        time.sleep(5)
+        save_results(sessions)
+        print(f"Saved. Sleeping 10 seconds...")
+        time.sleep(10)
     
     print(f"\nAll done. Total success: {sum(1 for s in sessions if s.get('status') == 'success')}")
 

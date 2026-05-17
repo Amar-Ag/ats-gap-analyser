@@ -86,11 +86,19 @@ class ATSTools:
         self.client = client
         self.index = index
     
+    @property
+    def model(self):
+        # check if using HuggingFace by looking at base_url
+        base_url = str(getattr(self.client, 'base_url', ''))
+        if 'huggingface' in base_url or 'router' in base_url:
+            return "meta-llama/Llama-3.3-70B-Instruct:groq"
+        return "llama-3.3-70b-versatile"
+    
     def extract_job_requirements(self, job_description: str) -> dict:
         """Extracts structured requirements from a job description including required skills, experience level, and keywords"""
         schema = JobRequirements.model_json_schema()
         response = self.client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=self.model,
             messages=[
                 {"role": "system", "content": f"""Extract structured requirements from a job description.
 
@@ -139,7 +147,7 @@ class ATSTools:
     """
         
         response = self.client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=self.model,
             messages=[
                 {
                     "role": "system",
@@ -174,7 +182,7 @@ class ATSTools:
         )
         context = json.dumps(search_results, indent=2)
         response = self.client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=self.model,
             messages=[
                 {"role": "system", "content": """Generate specific actionable CV improvement suggestions based on missing keywords.
                     Rules:
@@ -195,7 +203,7 @@ class ATSTools:
     def generate_cover_letter(self, cv_text: str, job_description: str, match_score: int) -> str:
         """Generates a tailored cover letter based on the CV, job description and match score"""
         response = self.client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=self.model,
             messages=[
                 {"role": "system", "content": "Write a tailored 3-paragraph cover letter. Open with a specific reason for applying. Connect top achievements to job requirements. Close with a call to action. Under 250 words."},
                 {"role": "user", "content": f"CV:\n{cv_text}\n\nJob Description:\n{job_description}\n\nMatch Score: {match_score}/100"}

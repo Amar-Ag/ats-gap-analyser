@@ -3,7 +3,7 @@ import os
 import logfire
 import re
 
-
+from openai import OpenAI
 from dotenv import load_dotenv
 from groq import Groq, BadRequestError
 from src.agent.tools import ATSTools, get_instance_tools
@@ -12,7 +12,17 @@ from src.agent.knowledge import index
 load_dotenv(override=True)
 logfire.configure()
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+# primary client
+groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+# fallback client
+hf_client = OpenAI(
+    api_key=os.getenv("HF_TOKEN"),
+    base_url="https://router.huggingface.co/v1"
+)
+
+# start with groq
+client = groq_client
 
 # instantiate tools
 ats_tools = ATSTools(client, index)
@@ -52,29 +62,42 @@ Never omit the cover letter from your final response.
 
 
 def run_agent(user_message: str):
+    global client
+    retry_count = 0
+    
     with logfire.span("agent run", user_message=user_message[:100]):
         messages = [
             {"role": "system", "content": instructions},
             {"role": "user", "content": user_message}
         ]
         
-        retry_count = 0
-
         while True:
             try:
+                model = "llama-3.3-70b-versatile" if client == groq_client else "meta-llama/Llama-3.3-70B-Instruct:groq"
+                
                 response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model=model,
                     messages=messages,
                     tools=tools,
                 )
             except BadRequestError as e:
                 if 'tool_use_failed' in str(e) and retry_count < 3:
+                    retry_count += 1
                     messages.append({
                         "role": "user",
                         "content": "Please try again using the tools one at a time in the correct sequence."
                     })
-                    retry_count += 1
                     continue
+                raise
+            except Exception as e:
+                if '429' in str(e):
+                    if client == groq_client:
+                        print("Groq rate limit — switching to HuggingFace")
+                        client = hf_client
+                        ats_tools.client = hf_client  # switch tools client too
+                        continue
+                    else:
+                        raise
                 raise
 
             choice = response.choices[0]
