@@ -332,15 +332,15 @@
     "category": "breaking",
     "cv": "\nJohn Smith | Data Analyst\nSQL, Python, Power BI\n3 years experience\n",
     "jd": "",
-    "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error"
+    "result": "Here is a summary of the analysis:\n\n**Match Score:** 60\n**Missing Keywords:** Business Intelligence, Excel, Tableau, Data Visualization, Data Modeling, Statistics\n**Improvement Suggestions:**\n- Add 'Business Intelligence' to the Skills section to directly match the job description terminology.\n- Include 'Excel' in the Skills section as it is a fundamental tool for data analysis and is missing from the current CV.\n- Add 'Data Visualization' to the Skills section to highlight expertise in presenting complex data insights.\n- Consider adding 'Data Modeling' to the Skills section to demonstrate ability to design and implement data structures.\n- Include 'Statistics' in the Skills section to showcase knowledge of statistical concepts and methods.\n**Cover Letter:**\nI am excited to apply for the Data Analyst position at your company, as it aligns with my passion for working with data and my experience in SQL, Python, and Power BI. With a match score of 60/100, I am confident that my skills and background make me a strong candidate for this role.\n\nAs a seasoned Data Analyst with 3 years of experience, I have developed a strong foundation in data analysis and visualization. My expertise in SQL, Python, and Power BI has enabled me to drive business growth and inform key decisions. I am proud of my achievements in data analysis, and I am excited to bring my skills and experience to a new challenge. I am confident that my technical skills and experience make me a strong fit for this position.\n\nI would welcome the opportunity to discuss my application and how my skills and experience align with the requirements of the Data Analyst role. Please do not hesitate to contact me to arrange an interview. I look forward to the opportunity to contribute to your team and drive business success through data-driven insights.",
+    "status": "success"
   },
   {
     "name": "breaking_jd_only",
     "category": "breaking",
     "cv": "",
     "jd": "\nData Analyst - Tech Company\nRequired: SQL, Python, Power BI\n3+ years experience\n",
-    "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
+    "result": "ERROR: Error code: 400 - {'error': {'message': \"Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.\", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=score_cv({\"cv_text\": \"Highly motivated data analyst with 5 years of experience in SQL, Python, and data visualization. Proficient in Power BI and Tableau.\", \"requirements\": {\"job_title\": \"Data Analyst\", \"required_skills\": [\"SQL\", \"Python\", \"Power BI\"], \"nice_to_have_skills\": [], \"experience_years\": 3, \"keywords\": [\"Data Analyst\", \"Tech Company\"], \"or_conditions\": []}})</function>'}}",
     "status": "error"
   },
   {
@@ -363,17 +363,13 @@
     "name": "breaking_nonsense_input",
     "category": "breaking",
     "cv": "asdfghjkl qwerty zxcvbnm 12345 !@#$%",
-    "jd": "lorem ipsum dolor sit amet consectetur adipiscing elit",
-    "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error"
+    "jd": "lorem ipsum dolor sit amet consectetur adipiscing elit"
   },
   {
     "name": "breaking_very_generic_cv",
     "category": "breaking",
     "cv": "\nA Person | Job Seeker\nI am a hard worker with good communication skills.\nI learn fast and work well in a team.\nI have experience doing things at companies.\n",
-    "jd": "\nData Analyst - Tech Company\nRequired: SQL, Python, Power BI, 3+ years experience\n",
-    "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error"
+    "jd": "\nData Analyst - Tech Company\nRequired: SQL, Python, Power BI, 3+ years experience\n"
   },
   {
     "name": "breaking_future_date_cv",
