@@ -108,8 +108,8 @@
     "category": "varied_input",
     "cv": "\nTom Brown | Graphic Designer | tom@email.com\nEXPERIENCE\nSenior Graphic Designer - AgencyCo (2019-Present, 5 years)\n- Designed brand identities for 50+ clients\n- Created marketing materials using Adobe Creative Suite\n- Collaborated with developers on website designs\n- Managed client relationships and project timelines\nSKILLS\nAdobe Photoshop, Illustrator, InDesign, Figma, HTML, CSS basics\nEDUCATION\nBA Graphic Design - Central Saint Martins (2019)\n",
     "jd": "\nBackend Python Engineer - FinTech Company\nRequired: Python, REST APIs, PostgreSQL, AWS, Docker\nNice to have: Kubernetes, FastAPI, test-driven development\n3+ years experience required\n",
-    "result": "ERROR: Error code: 400 - {'error': {'message': \"Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.\", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=score_cv[]{\"cv_text\":\"Tom Brown | Graphic Designer | tom@email.com\\\\nEXPERIENCE\\\\nSenior Graphic Designer - AgencyCo (2019-Present, 5 years)\\\\n- Designed brand identities for 50+ clients\\\\n- Created marketing materials using Adobe Creative Suite\\\\n- Collaborated with developers on website designs\\\\n- Managed client relationships and project timelines\\\\nSKILLS\\\\nAdobe Photoshop, Illustrator, InDesign, Figma, HTML, CSS basics\\\\nEDUCATION\\\\nBA Graphic Design - Central Saint Martins (2019)\",\"requirements\":{\"job_title\": \"Backend Python Engineer\", \"required_skills\": [\"Python\", \"REST APIs\", \"PostgreSQL\", \"AWS\", \"Docker\"], \"nice_to_have_skills\": [\"Kubernetes\", \"FastAPI\", \"Test-Driven Development\"], \"experience_years\": 3, \"keywords\": [\"FinTech\", \"Backend\", \"Python\", \"Cloud\"]}}</function>'}}",
-    "status": "error"
+    "result": "**Match Score:** 0\n**Missing Keywords:** Python, REST APIs, PostgreSQL, AWS, Docker, Kubernetes, FastAPI, test-driven development, FinTech\n**Improvement Suggestions:** \n- Add 'Python' to the Skills section to demonstrate proficiency in a programming language.\n- Include 'REST APIs' in the Skills section to showcase experience with API design and development.\n- Add 'PostgreSQL' to the Skills section to highlight database management skills.\n- Consider adding 'test-driven development' to the Skills section to demonstrate knowledge of software development methodologies.\n- Include 'AWS', 'Docker', and 'Kubernetes' in the Skills section to showcase experience with cloud computing and containerization technologies.\n**Cover Letter:**\n\"I am excited to apply for the Backend Python Engineer position at FinTech Company because it represents a unique opportunity for me to transition into a new field and leverage my problem-solving skills in a different context. Although my background is in graphic design, I am eager to bring my creative approach to a technical role and learn from a talented team.\n\nAs a Senior Graphic Designer at AgencyCo, I have developed strong project management skills, having managed client relationships and project timelines for over 50 clients. Additionally, my experience with Adobe Creative Suite has taught me the importance of attention to detail and the ability to learn new software quickly. I am confident that these skills will serve as a solid foundation as I dive into the world of backend engineering.\n\nI would welcome the chance to discuss how my transferable skills and enthusiasm for learning can contribute to the success of FinTech Company. I am excited about the opportunity to learn and grow with the team, and I am confident that my unique perspective will bring a fresh approach to the role. I look forward to the opportunity to discuss my application and how I can make a meaningful contribution to the company.\"",
+    "status": "success"
   },
   {
     "name": "varied_minimal_cv",
@@ -132,8 +132,8 @@
     "category": "varied_input",
     "cv": "\nMike Johnson | Self-taught Developer | mike@email.com\nEXPERIENCE\nFreelance Web Developer (2020-Present, 4 years)\n- Built 30+ websites using React, Node.js, and MongoDB\n- Automated client workflows using Python scripts\n- Managed AWS deployments for small businesses\nSKILLS\nJavaScript, React, Node.js, Python, MongoDB, AWS, Git\nEDUCATION\nSelf-taught - online courses (Udemy, Coursera, freeCodeCamp)\nNo formal degree\n",
     "jd": "\nFull Stack Developer - Tech Company\nRequired: JavaScript or Python, React or similar framework, REST APIs, databases\nNice to have: AWS, Docker, CI/CD\n2+ years experience required\n",
-    "result": "ERROR: Error code: 400 - {'error': {'message': \"Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.\", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=score_cv[]{\"cv_text\": \"Mike Johnson | Self-taught Developer | mike@email.com\\\\nEXPERIENCE\\\\nFreelance Web Developer (2020-Present, 4 years)\\\\n- Built 30+ websites using React, Node.js, and MongoDB\\\\n- Automated client workflows using Python scripts\\\\n- Managed AWS deployments for small businesses\\\\nSKILLS\\\\nJavaScript, React, Node.js, Python, MongoDB, AWS, Git\\\\nEDUCATION\\\\nSelf-taught - online courses (Udemy, Coursera, freeCodeCamp)\\\\nNo formal degree\", \"requirements\": {\"job_title\": \"Full Stack Developer\", \"required_skills\": [\"JavaScript\", \"Python\", \"React\", \"REST APIs\", \"databases\"], \"nice_to_have_skills\": [\"AWS\", \"Docker\", \"CI/CD\"], \"experience_years\": 2, \"keywords\": [\"Full Stack\", \"JavaScript\", \"Python\", \"React\", \"REST APIs\", \"databases\", \"AWS\", \"Docker\", \"CI/CD\"]}}</function>'}}",
-    "status": "error"
+    "result": "Here is a summary of the analysis:\n\n**Match Score:** 80\n**Missing Keywords:** REST APIs, databases, Docker, CI/CD\n**Improvement Suggestions:**\n- Add 'Docker' to the Skills section to match the job description's technical requirements.\n- Include 'CI/CD' in the Skills section to demonstrate experience with continuous integration and deployment.\n- Add 'REST APIs' to the Skills section to showcase proficiency in API development and integration.\n- Consider rephrasing 'Automated client workflows using Python scripts' to 'Implemented automated workflows using Python and REST APIs' to incorporate the missing keyword 'REST APIs'.\n- Add a brief description of experience with 'CI/CD' in the Experience section, such as 'Implemented CI/CD pipelines using Docker and Git' to provide context for the skill.\n**Cover Letter:**\nI am excited to apply for the Full Stack Developer position at Tech Company because it aligns with my passion for building robust and scalable web applications. With over 4 years of experience as a Freelance Web Developer, I am confident in my ability to make a valuable contribution to your team.\n\nAs a self-taught developer, I have honed my skills in JavaScript, React, and Node.js, which are essential requirements for this role. My experience in building 30+ websites using these technologies has equipped me with the knowledge to design and implement efficient solutions. Additionally, my proficiency in MongoDB and AWS deployments will enable me to hit the ground running. My achievements as a freelancer have also taught me the importance of automation, and I have successfully automated client workflows using Python scripts.\n\nI would welcome the opportunity to discuss how my skills and experience align with the requirements of this role. With a strong match score of 80/100, I am eager to bring my expertise to Tech Company and contribute to the success of your team. Please do not hesitate to contact me at mike@email.com to arrange a conversation. I look forward to the opportunity to discuss this further.",
+    "status": "success"
   },
   {
     "name": "varied_gap_in_employment",
@@ -196,68 +196,88 @@
     "category": "edge_case",
     "cv": "\nAnna Brown | Full Stack Developer | anna@email.com\nEXPERIENCE\nFull Stack Developer - WebAgency (2020-Present, 4 years)\n- React frontend and Node.js backend development\n- PostgreSQL and MongoDB database management\n- AWS deployment and CI/CD pipelines\nSKILLS\nJavaScript, React, Node.js, Python, PostgreSQL, MongoDB, AWS, Docker, Git\nEDUCATION\nBSc Computer Science - Bristol (2020)\n",
     "jd": "\nFull Stack Developer - Enterprise Company\nRequired: JavaScript, TypeScript, React, Angular, Vue, Node.js, Python, Java, C#,\nPostgreSQL, MySQL, MongoDB, Redis, Elasticsearch, AWS, GCP, Azure, Docker,\nKubernetes, Terraform, Jenkins, GitHub Actions, REST APIs, GraphQL, gRPC,\nmicroservices, event-driven architecture, Kafka, RabbitMQ, JIRA, Confluence,\nAgile, Scrum, Kanban, TDD, BDD, security best practices, GDPR compliance,\nperformance optimization, code review, mentoring, technical documentation\n5+ years experience required\n",
-    "result": "ERROR: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kmhb4tp4fv39tkevk5cd9r3v` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98278, Requested 3376. Please try again in 23m49.056s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+    "result": "",
     "status": "error"
   },
   {
     "name": "edge_non_english_cv",
     "category": "edge_case",
     "cv": "\nCarlos Mendoza | Analista de Datos | carlos@email.com\nEXPERIENCIA\nAnalista Senior de Datos - EmpresaTech (2020-Presente, 4 a\u00f1os)\n- Construcci\u00f3n de consultas SQL complejas\n- Creaci\u00f3n de dashboards en Power BI\n- An\u00e1lisis de datos con Python y pandas\nHABILIDADES\nSQL, Python, pandas, Power BI, Excel, an\u00e1lisis estad\u00edstico\nEDUCACI\u00d3N\nLicenciatura en Estad\u00edstica - Universidad Aut\u00f3noma de M\u00e9xico (2020)\n",
-    "jd": "\nData Analyst - UK Company\nRequired: SQL, Python, Power BI, 3+ years experience, right to work in UK\nNice to have: Tableau, dbt, cloud platforms\n"
+    "jd": "\nData Analyst - UK Company\nRequired: SQL, Python, Power BI, 3+ years experience, right to work in UK\nNice to have: Tableau, dbt, cloud platforms\n",
+    "result": "Match Score: 70\nMissing Keywords: UK Company, right to work in UK\nImprovement Suggestions: \n- Add 'UK Company' to your work experience section to demonstrate familiarity with UK-based companies.\n- Include 'right to work in UK' in your CV, preferably in a separate section or at the top of your CV, to ensure ATS can easily parse this crucial information.\n- Consider adding a sentence to your cover letter (if included) or summary section stating your eligibility to work in the UK, using the exact phrase 'right to work in UK'.\n- As you have international education, explicitly state your ability to work in the UK, e.g., 'Holding a valid visa to work in the UK' or similar, to address potential concerns.\n- If applicable, mention any experience working with UK-based clients or companies in your work experience section to strengthen your application.\nCover Letter: \n\"I am excited to apply for the Data Analyst position at UK Company because it offers the opportunity to leverage my technical skills in SQL, Python, and Power BI to drive business growth. With a strong foundation in data analysis, I am confident that my experience and skills align with the job requirements. As a detail-oriented and analytical individual, I am drawn to the company's commitment to data-driven decision-making.\n\nAs a Senior Data Analyst at EmpresaTech, I have spent the past four years honing my skills in data analysis, particularly in SQL, Python, and Power BI. My experience in constructing complex SQL queries, creating informative dashboards, and analyzing data with Python and pandas has equipped me with the expertise to make a significant impact at UK Company. I am excited about the prospect of bringing my skills and experience to a new challenge and contributing to the company's success.\n\nI would welcome the opportunity to discuss my application and how my skills and experience align with the job requirements. Please do not hesitate to contact me at carlos@email.com to arrange a conversation. I am eager to learn more about the company culture and how I can contribute to the team's success. I look forward to the opportunity to discuss my application further.\"",
+    "status": "success"
   },
   {
     "name": "edge_cv_only_no_jd",
     "category": "edge_case",
     "cv": "\nSarah Johnson | Data Analyst | sarah@email.com\nEXPERIENCE\nData Analyst - RetailCo (2021-Present)\n- SQL, Python, Power BI\nSKILLS\nSQL, Python, Power BI\n",
-    "jd": ""
+    "jd": "",
+    "result": "## Step 1: Match Score\nThe match score is 75, indicating that the CV matches some of the job requirements but may be missing some important keywords or skills.\n\n## Step 2: Missing Keywords\nThe missing keywords are \"Reporting\", \"Insights\", and \"Excel\", which are important for the Data Analyst role.\n\n## Step 3: Improvement Suggestions\nTo improve the CV, the following suggestions are made:\n- Add 'Reporting' to the Skills section to match the job description requirements\n- Include 'Insights' in the Skills section to improve keyword matching\n- Add 'Excel' to the Skills section as it is a commonly used tool in data analysis\n- Consider adding 'Reporting' to the experience section under Data Analyst role to provide context to the skill\n- Include 'Data Insights' or 'Business Insights' in the experience section to demonstrate ability to generate insights from data\n\n## Step 4: Cover Letter\nThe generated cover letter is:\n\"I am excited to apply for the Data Analyst position at your company because the job description highlights the use of SQL, Python, and Power BI, which are skills I have honed in my current role at RetailCo. With a strong foundation in data analysis, I am confident that I can leverage my expertise to drive business growth and insights.\nAs a seasoned Data Analyst, I have successfully utilized SQL, Python, and Power BI to analyze complex data sets and present actionable insights to stakeholders. My experience at RetailCo has equipped me with the skills to collect, organize, and analyze large data sets, and I am excited about the prospect of bringing my skills to a new challenge. I am well-versed in data visualization and have a proven track record of creating interactive and informative reports using Power BI.\nI would welcome the opportunity to discuss how my skills and experience align with the requirements of the Data Analyst role. Please do not hesitate to contact me at sarah@email.com to arrange a meeting to explore how I can contribute to the success of your team. I look forward to the opportunity to discuss my application and how I can make a meaningful impact as a Data Analyst at your company.\"",
+    "status": "success"
   },
   {
     "name": "edge_senior_applying_junior",
     "category": "edge_case",
     "cv": "\nMichael Chen | VP of Engineering | michael@email.com\nEXPERIENCE\nVP Engineering - ScaleupCo (2019-Present, 5 years)\n- Led 80-person engineering organisation\n- $50M annual technology budget\n- Board-level reporting and investor relations\n- Strategic technology roadmap planning\nSKILLS\nLeadership, Strategy, Python, AWS, Architecture, Stakeholder Management\nEDUCATION\nMSc Computer Science - MIT (2012)\n",
-    "jd": "\nJunior Software Developer - Startup\nRequired: Python basics, Git, enthusiasm to learn\n0-2 years experience\nSalary: \u00a325,000\n"
+    "jd": "\nJunior Software Developer - Startup\nRequired: Python basics, Git, enthusiasm to learn\n0-2 years experience\nSalary: \u00a325,000\n",
+    "result": "## Step 1: Match Score\nThe match score is 75, indicating a moderate match between the CV and the job description.\n\n## Step 2: Missing Keywords\nThe missing keywords are \"Git\" and \"Startup\", which are required skills and keywords in the job description.\n\n## Step 3: Improvement Suggestions\nTo improve the CV, the following suggestions are made:\n- Add 'Git' to the Skills section to match the job description's technical requirements\n- Include 'Startup' in the Experience section to highlight relevant industry experience\n- Consider adding 'Git' to the Experience section under relevant job roles to provide context for its usage\n- Ensure the CV is saved in a plain .docx or PDF format to facilitate easy parsing by ATS systems\n- Create a clear and dedicated section for technical skills, including 'Git', to enhance ATS parseability\n\n## Step 4: Cover Letter\nHere is a generated cover letter:\n\n\"I am excited to apply for the Junior Software Developer position at Startup because it presents an opportunity to return to my programming roots and contribute to a innovative company. As a seasoned technology leader with a strong foundation in computer science, I am eager to bring my skills and experience to a new challenge.\n\nAlthough my current role as VP of Engineering at ScaleupCo has equipped me with leadership and strategic expertise, my technical skills in Python and experience with AWS and architecture remain strong. I am confident that my ability to learn and adapt quickly will enable me to make a positive impact at Startup. My enthusiasm for technology and passion for innovation drive my desire to join a dynamic team and contribute to the company's growth.\n\nI would welcome the chance to discuss how my skills and experience align with the Junior Software Developer role. Despite my non-traditional background for this position, I am excited about the opportunity to learn and grow with the company. I look forward to the opportunity to meet with you to explore how I can contribute to Startup's success. Please do not hesitate to contact me at michael@email.com.\"",
+    "status": "success"
   },
   {
     "name": "edge_duplicate_skills",
     "category": "edge_case",
     "cv": "\nLucy Adams | Data Analyst | lucy@email.com\nEXPERIENCE\nData Analyst - DataCo (2021-Present)\n- SQL, SQL Server, MySQL, PostgreSQL, PL/SQL, T-SQL\n- Power BI, Power BI Desktop, Power BI Service, DAX, Power Query\n- Python, Python 3, pandas, numpy, Python scripting\nSKILLS\nSQL, SQL Server, MySQL, PostgreSQL, Power BI, Power BI Desktop, DAX,\nPython, pandas, numpy, Python 3, data analysis, analytical skills\nEDUCATION\nBSc Computing (2021)\n",
-    "jd": "\nData Analyst - Finance Company\nRequired: SQL, Python, Power BI, 2+ years experience\nNice to have: dbt, Snowflake, financial domain knowledge\n"
+    "jd": "\nData Analyst - Finance Company\nRequired: SQL, Python, Power BI, 2+ years experience\nNice to have: dbt, Snowflake, financial domain knowledge\n",
+    "result": "Here is a summary of the analysis:\n\n**Match Score:** 100\n\n**Missing Keywords:** \n\n**Improvement Suggestions:** \nConsider adding 'data visualisation' to your Skills section as it is a key aspect of data analysis and a common requirement in data analyst roles.\nAdd 'database management' to your Skills section to highlight your expertise in managing and maintaining databases.\nInclude 'data modelling' in your Skills section to demonstrate your ability to design and implement data models.\nAdd 'statistical analysis' to your Skills section to showcase your skills in analysing and interpreting complex data sets.\nConsider adding 'machine learning' to your Skills section to highlight your knowledge of machine learning concepts and techniques.\n\n**Cover Letter:**\nI am excited to apply for the Data Analyst position at Finance Company, as it perfectly aligns with my current role and skillset. With over 2 years of experience as a Data Analyst at DataCo, I am confident in my ability to drive business growth through data-driven insights.\n\nAs a seasoned data professional, I possess expertise in SQL, Python, and Power BI, which are essential requirements for this role. My experience with SQL Server, MySQL, and PostgreSQL has equipped me with a strong foundation in database management. Additionally, my proficiency in Power BI and Python scripting has enabled me to create interactive dashboards and automate tasks, making me a valuable asset to any organization.\n\nI would welcome the opportunity to discuss how my skills and experience can contribute to the success of Finance Company. With my strong technical background and analytical skills, I am eager to bring my expertise to a new challenge. Please do not hesitate to contact me at lucy@email.com to arrange an interview, and I look forward to exploring how I can make a meaningful impact at your organization.",
+    "status": "success"
   },
   {
     "name": "edge_very_short_jd",
     "category": "edge_case",
     "cv": "\nPeter Jones | Software Engineer | peter@email.com\nEXPERIENCE\nSoftware Engineer - TechCo (2020-Present, 4 years)\n- Python backend development\n- PostgreSQL database management\n- AWS deployments\nSKILLS\nPython, PostgreSQL, AWS, Docker, Git, REST APIs\nEDUCATION\nBSc Computer Science (2020)\n",
-    "jd": "Looking for a developer. Must know coding."
+    "jd": "Looking for a developer. Must know coding.",
+    "result": "Here is a summary of the analysis:\n- Match Score: 100\n- Missing Keywords: \n- Improvement Suggestions: \n    - Consider adding a summary or objective section to provide an overview of your experience and skills\n    - Include relevant soft skills in the Skills section, such as communication, teamwork, or problem-solving\n    - Add specific technical skills mentioned in the job description that are not already listed, however since there are no missing keywords, review the job description to identify potential missing skills\n    - Use standard section headings and avoid complex formatting to improve ATS parsing\n    - Review the job description for specific experience level requirements and ensure your CV reflects relevant experience\n- Cover Letter:\n\"I am excited to apply for the developer position at your company because it aligns perfectly with my skills and experience as a software engineer. With a strong foundation in computer science, I am confident in my ability to make valuable contributions to your team.\n\nAs a seasoned software engineer with 4 years of experience at TechCo, I have developed a robust set of skills that match the job requirements. My expertise in Python, PostgreSQL, and AWS deployments will enable me to hit the ground running and deliver high-quality results. I am well-versed in coding and have a proven track record of successfully completing projects using a range of technologies, including Docker, Git, and REST APIs.\n\nI would welcome the opportunity to discuss my application and how my skills and experience align with your needs. Please do not hesitate to contact me at peter@email.com to arrange a conversation. I look forward to the opportunity to contribute to your team and explore how my skills can support your goals.\"",
+    "status": "success"
   },
   {
     "name": "oos_weather",
     "category": "out_of_scope",
     "cv": "",
-    "jd": "What is the weather like in London today?"
+    "jd": "What is the weather like in London today?",
+    "result": "I'm not able to provide real-time information or weather updates. However, I can help you with job-related queries, such as analyzing your CV and a job description to provide feedback on how well your CV matches the job requirements. If you have a CV and a job description, I can assist you with that.",
+    "status": "success"
   },
   {
     "name": "oos_recipe",
     "category": "out_of_scope",
     "cv": "",
-    "jd": "How do I make pasta carbonara?"
+    "jd": "How do I make pasta carbonara?",
+    "result": "To address your question on how to make pasta carbonara, I will provide a step-by-step guide. However, I must point out that this is not related to the services I provide as an ATS Gap Analyser assistant, which involves analysing CVs and job descriptions to provide tailored advice.\n\nThat being said, here's a simple recipe for pasta carbonara:\n\nIngredients:\n- 12 oz spaghetti\n- 4 oz pancetta or bacon, diced\n- 3 large eggs\n- 1 cup grated Parmesan cheese\n- Salt and black pepper, to taste\n- Fresh parsley, chopped (optional)\n\nInstructions:\n1. Bring a large pot of salted water to a boil and cook the spaghetti according to the package instructions until al dente. Reserve 1 cup of pasta water before draining the spaghetti.\n2. In a large skillet, cook the pancetta or bacon over medium heat until crispy. Remove from heat and set aside.\n3. In a medium bowl, whisk together the eggs, Parmesan cheese, and a pinch of salt and pepper.\n4. Add the cooked spaghetti to the bowl with the egg mixture and toss to combine.\n5. Add the reserved pasta water to the bowl in small increments and continue to toss until the spaghetti is well coated with the egg mixture and has a creamy consistency.\n6. Add the cooked pancetta or bacon to the bowl and toss to combine.\n7. Season with salt and black pepper to taste.\n8. Serve immediately, garnished with chopped fresh parsley if desired.\n\nPlease let me know if you have any questions or if there's anything else I can help you with. However, if you're looking for assistance with CV analysis or job description matching, please provide the relevant information, and I'll be happy to help.",
+    "status": "success"
   },
   {
     "name": "oos_sports",
     "category": "out_of_scope",
     "cv": "",
-    "jd": "Who won the Premier League last season?"
+    "jd": "Who won the Premier League last season?",
+    "result": "I'm not able to provide real-time information or updates on current events. However, I can suggest checking the official Premier League website or other reliable sports news sources for the most up-to-date information on the latest season's winner.",
+    "status": "success"
   },
   {
     "name": "oos_general_advice",
     "category": "out_of_scope",
     "cv": "",
-    "jd": "What should I have for lunch today?"
+    "jd": "What should I have for lunch today?",
+    "result": "I'm not able to assist with that request. If you provide a CV and a job description, I can help you understand why your CV may not be passing ATS screening and what to fix.",
+    "status": "success"
   },
   {
     "name": "oos_coding_question",
     "category": "out_of_scope",
     "cv": "",
-    "jd": "How do I reverse a string in Python?"
+    "jd": "How do I reverse a string in Python?",
+    "result": "You can reverse a string in Python using slicing. Here's an example: \n```python\nstring = \"hello\"\nreversed_string = string[::-1]\nprint(reversed_string)  # prints \"olleh\"\n```",
+    "status": "success"
   },
   {
     "name": "oos_news",
@@ -271,25 +291,33 @@
     "name": "oos_math",
     "category": "out_of_scope",
     "cv": "",
-    "jd": "What is 15% of 240?"
+    "jd": "What is 15% of 240?",
+    "result": "To find 15% of 240, you need to multiply 240 by 0.15.\n\n240 * 0.15 = 36\n\nSo, 15% of 240 is 36.",
+    "status": "success"
   },
   {
     "name": "oos_personal",
     "category": "out_of_scope",
     "cv": "",
-    "jd": "I am feeling sad today, can you help?"
+    "jd": "I am feeling sad today, can you help?",
+    "result": "I'm not able to assist with personal feelings or emotions. If you'd like to discuss a job description and CV, I can help you analyze why your CV may not be passing ATS screening and provide suggestions for improvement. Please provide the job description and CV text if you'd like to proceed.",
+    "status": "success"
   },
   {
     "name": "oos_translation",
     "category": "out_of_scope",
     "cv": "",
-    "jd": "Translate 'hello world' into Spanish"
+    "jd": "Translate 'hello world' into Spanish",
+    "result": "I am not able to execute this task as it requires a function call that is not supported by the provided functions.",
+    "status": "success"
   },
   {
     "name": "oos_partial_context",
     "category": "out_of_scope",
     "cv": "I have 5 years experience in marketing",
-    "jd": "Tell me a joke"
+    "jd": "Tell me a joke",
+    "result": "",
+    "status": "error"
   },
   {
     "name": "breaking_empty_both",
