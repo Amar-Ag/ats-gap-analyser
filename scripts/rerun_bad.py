@@ -62,6 +62,6 @@ for i, session in enumerate(to_rerun):
         json.dump(results, f, indent=2)
     
     print(f"Saved. Sleeping 10s...")
-    time.sleep(10)
+    time.sleep(13)
 
 print(f"\nDone. Check results and relabel as needed.")
