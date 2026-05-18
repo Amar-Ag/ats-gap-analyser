@@ -209,7 +209,8 @@ class ATSTools:
                     Connect top 2-3 achievements directly to the job requirements.
                     If match score is below 70, honestly acknowledge the gap and explain 
                     how transferable skills compensate. Close with a call to action.
-                    Under 250 words. Do not use placeholder text like [Company Name]."""},
+                    Under 250 words. Do not use placeholder text like [Company Name].
+                    Do not mention the match score number in the cover letter."""},
                 {"role": "user", "content": f"CV:\n{cv_text}\n\nJob Description:\n{job_description}\n\nMatch Score: {match_score}/100"}
             ]
         )
