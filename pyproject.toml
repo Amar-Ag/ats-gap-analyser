@@ -12,6 +12,7 @@ dependencies = [
     "logfire[query]>=4.32.1",
     "streamlit>=1.57.0",
     "openai>=2.37.0",
+    "pdfplumber>=0.11.9",
 ]
 
 [project.optional-dependencies]

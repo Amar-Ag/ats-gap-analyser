@@ -3,7 +3,6 @@ import os
 import inspect
 from pydantic import BaseModel
 from typing import List, get_type_hints
-from src.agent.knowledge import index
 
 class JobRequirements(BaseModel):
     job_title: str
@@ -107,6 +106,7 @@ class ATSTools:
                 - Also add the full OR phrase to or_conditions (e.g. "Power BI or Tableau")
 
                 This allows the scorer to know which skills are interchangeable alternatives.
+                If experience years is not explicitly mentioned in the JD, set experience_years to 0.
 
                 Return only a JSON object matching this schema: {schema}. Return only the JSON, no other text."""},
                 {"role": "user", "content": job_description}
@@ -176,10 +176,9 @@ class ATSTools:
     
     def suggest_improvements(self, cv_text: str, missing_keywords: List[str]) -> dict:
         """Generates specific actionable CV improvement suggestions based on missing keywords using ATS best practices"""
-        search_results = self.index.search(
-            f"keywords missing skills {' '.join(missing_keywords[:3])}",
-            num_results=3
-        )
+        # search more specifically based on the type of gaps
+        search_query = " ".join(missing_keywords[:5]) if missing_keywords else "ATS keywords skills"
+        search_results = self.index.search(search_query, num_results=5)  # increase from 3 to 5
         context = json.dumps(search_results, indent=2)
         response = self.client.chat.completions.create(
             model=self.model,
@@ -205,7 +204,12 @@ class ATSTools:
         response = self.client.chat.completions.create(
             model=self.model,
             messages=[
-                {"role": "system", "content": "Write a tailored 3-paragraph cover letter. Open with a specific reason for applying. Connect top achievements to job requirements. Close with a call to action. Under 250 words."},
+                {"role": "system", "content": """Write a tailored 3-paragraph cover letter.
+                    Open with a specific reason for applying to THIS role at THIS company.
+                    Connect top 2-3 achievements directly to the job requirements.
+                    If match score is below 70, honestly acknowledge the gap and explain 
+                    how transferable skills compensate. Close with a call to action.
+                    Under 250 words. Do not use placeholder text like [Company Name]."""},
                 {"role": "user", "content": f"CV:\n{cv_text}\n\nJob Description:\n{job_description}\n\nMatch Score: {match_score}/100"}
             ]
         )

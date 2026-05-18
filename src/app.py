@@ -1,8 +1,10 @@
+import streamlit as st
 import sys
+import pdfplumber
+import io
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
-import streamlit as st
 from src.agent.agent import run_agent
 
 st.set_page_config(layout="wide", page_title="ATS Gap Analyser")
@@ -15,12 +17,22 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Your CV")
-    cv_text = st.text_area(
-        "CV",
-        placeholder="Paste your CV text here...",
-        height=350,
-        label_visibility="collapsed"
-    )
+    
+    # PDF upload option
+    uploaded_file = st.file_uploader("Upload CV as PDF", type="pdf")
+    
+    if uploaded_file:
+        with pdfplumber.open(io.BytesIO(uploaded_file.read())) as pdf:
+            cv_text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+        st.success(f"PDF uploaded — {len(cv_text)} characters extracted")
+        st.text_area("Extracted CV text", value=cv_text, height=250, disabled=True, label_visibility="visible")
+    else:
+        cv_text = st.text_area(
+            "CV",
+            placeholder="Or paste your CV text here...",
+            height=350,
+            label_visibility="collapsed"
+        )
 
 with col2:
     st.subheader("Job Description")
@@ -37,10 +49,10 @@ analyse_button = st.button("🔍 Analyse My CV", type="primary", use_container_w
 
 if analyse_button:
     if not cv_text or not jd_text:
-        st.warning("Please paste both your CV and the job description.")
+        st.warning("Please provide both your CV and the job description.")
     else:
         try:
-            with st.spinner("Analysing your CV..."):
+            with st.spinner("Analysing your CV against the job description..."):
                 result = run_agent(
                     f"Analyse my CV against this job description.\nCV:\n{cv_text}\nJD:\n{jd_text}"
                 )
@@ -56,8 +68,8 @@ if analyse_button:
 with st.sidebar:
     st.header("How to use")
     st.markdown("""
-1. Paste your CV text in the left box
-2. Paste the job description in the right box  
+1. Upload your CV as a PDF or paste the text
+2. Paste the job description
 3. Click **Analyse My CV**
 4. Get your match score, gaps, and a tailored cover letter
     """)
