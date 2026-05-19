@@ -1,11 +1,8 @@
 import json
 
 import pytest
-from dotenv import load_dotenv
-
 from src.agent.agent import client
 
-load_dotenv(override=True)
 
 @pytest.fixture
 def sample_cv():
