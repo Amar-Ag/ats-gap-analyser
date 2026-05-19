@@ -30,7 +30,7 @@ with col1:
         cv_text = st.text_area(
             "CV",
             placeholder="Or paste your CV text here...",
-            height=350,
+            height=250,  # reduced from 350
             label_visibility="collapsed"
         )
 
@@ -77,20 +77,22 @@ with col2:
                 st.success(f"Fetched {len(fetched_text)} characters from URL")
             except Exception as e:
                 st.error(f"Could not fetch URL: {str(e)}. Please paste the job description manually.")
-                
+
     
+    # JD column - reduce height  
+    jd_height = 200 if jd_url else 250  # reduced from 300/350
+
     jd_text = st.text_area(
         "JD",
         value=st.session_state.get('jd_text', ''),
         placeholder="Or paste the job description here...",
-        height=300,
+        height=jd_height,
         label_visibility="collapsed"
     )
 
-st.divider()
-
 analyse_button = st.button("🔍 Analyse My CV", type="primary", use_container_width=True)
 
+st.divider()
 if analyse_button:
     if not cv_text or not jd_text:
         st.warning("Please provide both your CV and the job description.")
