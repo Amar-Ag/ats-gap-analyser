@@ -104,16 +104,12 @@
     "category": "happy_path",
     "cv": "\nAlex Thompson | Junior Developer | alex@email.com\nEXPERIENCE\nSoftware Engineering Intern - StartupCo (Summer 2023, 3 months)\n- Built features in React and Node.js\n- Wrote SQL queries for reporting\n- Fixed bugs and wrote unit tests\nSKILLS\nPython, JavaScript, React, Node.js, SQL, Git, HTML, CSS\nEDUCATION\nBSc Computer Science - University of Edinburgh (2023) - First Class\nFinal year project: Machine learning classifier for sentiment analysis\n",
     "jd": "\nJunior Software Developer - Tech Company\nRequired: Python or JavaScript, basic SQL, Git, willingness to learn\nNice to have: React, Node.js, any internship experience\n0-2 years experience\n",
-    "result": "Match Score: 85\nMissing Keywords: willingness to learn\nImprovement Suggestions: \n1. Add 'willingness to learn' to the Skills section to match the job description's emphasis on adaptability and growth.\n2. Include 'agile development methodologies' and 'version control systems' in the Skills section, as these are commonly required in junior developer roles.\n3. Emphasize 'problem-solving skills' and 'collaboration' in the EXPERIENCE section by rephrasing the bullet points to highlight these soft skills, e.g., 'Collaborated with the development team to identify and resolve bugs'.\n4. Use specific keywords from the job description in the EXPERIENCE section, such as 'responsive web design' or 'database management', to demonstrate relevance to the role.\n5. Consider adding a 'Personal Projects' section to showcase any personal coding projects or contributions to open-source projects, demonstrating enthusiasm and a willingness to learn and grow as a developer.\nCover Letter:\n\"I am excited to apply for the Junior Software Developer position at Tech Company, as the job description highlights a strong alignment with my skills and experience, particularly the emphasis on Python and JavaScript, which I have developed a solid foundation in during my time at the University of Edinburgh. My BSc Computer Science degree, which I completed with a First Class, has provided me with a comprehensive understanding of programming principles and software development methodologies.\n\nAs a Junior Developer with internship experience at StartupCo, I am confident in my ability to contribute to Tech Company's team. My experience building features in React and Node.js, as well as writing SQL queries for reporting, has equipped me with a strong foundation in web development and data analysis. Additionally, my experience with Git and willingness to learn new technologies make me a strong fit for this role. I am excited about the opportunity to apply my skills and knowledge to drive innovation and growth at Tech Company.\n\nI would welcome the opportunity to discuss my application and how my skills and experience align with the requirements of the Junior Software Developer position. Please do not hesitate to contact me at alex@email.com to arrange a conversation. I look forward to the opportunity to contribute to Tech Company's success and learn from the team's expertise.\"",
+    "result": "## Match Score\n95/100 \u2014 The CV matches most of the required skills and has relevant experience as a software engineering intern.\n\n## Missing Keywords\n* Tech Company\n\n## Improvement Suggestions\n1. Consider adding 'Tech Company' to your experience or skills section to highlight your relevance to the industry.\n2. Since you have experience in a startup, you may want to emphasize your adaptability and ability to work in a fast-paced environment, which is often desirable in tech companies.\n3. As you have listed 'StartupCo' as your internship experience, you could expand on this by mentioning if it is a tech-focused company, to make the connection to the 'Tech Company' keyword more explicit.\n4. You may also want to research and add relevant tech company-related skills or tools to your skills section, such as experience with cloud platforms or agile development methodologies.\n5. In your education section, you could mention if your university has any partnerships or collaborations with tech companies, to further demonstrate your connection to the industry.\n\n## Cover Letter\nI am excited to apply for the Junior Software Developer role at Tech Company, as it offers the perfect opportunity to leverage my skills in Python and JavaScript, which I believe are essential for driving innovation in the industry. With a strong foundation in computer science and a passion for software development, I am confident that I can make a valuable contribution to the team.\n\nMy experience as a Software Engineering Intern at StartupCo has provided me with hands-on experience in building features using React and Node.js, as well as writing SQL queries for reporting. These skills align perfectly with the job requirements, and I am eager to apply them in a real-world setting. Additionally, my experience with Git and unit testing has taught me the importance of version control and ensuring the quality of code.\n\nI would welcome the opportunity to discuss how my skills and experience can support the success of Tech Company. With a strong educational background and a willingness to learn, I am confident that I can quickly adapt to the company's technologies and workflows. I look forward to the opportunity to contribute to the team and learn from experienced professionals in the field. Please feel free to contact me to arrange a discussion.",
     "status": "success",
     "label": "bad",
     "comments": "\"Willingness to learn\" is not a keyword \u2014 it's a soft descriptor in the JD. ",
     "failure_category": "hallucination",
-    "judge_result": {
-      "label": "bad",
-      "reasoning": "The agent incorrectly flagged 'willingness to learn' as a missing keyword, despite it being mentioned in the CV's Skills section. Additionally, the agent suggested adding 'agile development methodologies' and 'version control systems' to the Skills section, which are not mentioned in the JD. The agent also suggested rephrasing bullet points in the EXPERIENCE section to highlight soft skills, but this is a general best practice and not a hallucination.",
-      "failure_category": "hallucination"
-    }
+    "rerun": true
   },
   {
     "name": "happy_project_manager",
@@ -292,14 +288,10 @@
     "jd": "\nTech Role - Growing Company\nWe are looking for a strong team player who is passionate about technology.\nGood communication skills essential.\nExperience with computers and software required.\nMust be a fast learner.\n",
     "label": "bad",
     "comments": "fast learner is not a skill that can be added ",
-    "result": "Here is a summary of the analysis:\n\n**Match Score:** 90\n\n**Missing Keywords:** fast learner\n\n**Improvement Suggestions:**\n1. Add 'fast learner' to the Skills section to match the job description and improve ATS parsing\n2. Replace 'communication' and 'teamwork' in the Skills section with more specific keywords like 'collaboration', 'problem-solving', and 'adaptability'\n3. Consider adding a 'Technical Skills' subsection to the Skills section to separate technical skills like 'Python', 'JavaScript', and 'SQL' from soft skills\n4. Use a standard section heading like 'WORK EXPERIENCE' instead of 'EXPERIENCE' to improve ATS recognition\n5. Include relevant tools and technologies from the job description in the Skills section, such as 'agile methodologies' and 'API design'\n\n**Cover Letter:**\nI am excited to apply for the Tech Role at Growing Company because the emphasis on teamwork and communication skills aligns with my experience and passion for collaborative software development. As a seasoned developer with 4 years of experience at TechCo, I am confident that my skills and expertise make me an ideal fit for this position.\n\nThroughout my career, I have developed a strong foundation in full stack development, database management, and API development, utilizing technologies such as Python, JavaScript, and SQL. My experience working in an agile environment has also honed my ability to collaborate effectively with team members and adapt to new challenges. I am eager to leverage my technical expertise and excellent communication skills to contribute to the success of Growing Company.\n\nI would welcome the opportunity to discuss how my skills and experience align with the requirements of the Tech Role. Please do not hesitate to contact me at chris@email.com to arrange a conversation. I am excited about the prospect of joining Growing Company and contributing to the team's success as a strong team player and passionate technologist.",
+    "result": "## Match Score\n85/100 \u2014 The CV matches most requirements, missing some keywords.\n\n## Missing Keywords\n* fast learner\n\n## Improvement Suggestions\n1. Add 'fast learner' under the SKILLS section to demonstrate adaptability and ability to quickly acquire new skills\n2. Include 'fast learner' in the EXPERIENCE section, specifically highlighting a situation where you rapidly adapted to new technologies or workflows\n3. Mention 'fast learner' in the EDUCATION section, emphasizing how your academic background has prepared you to quickly absorb new concepts and technologies\n4. Incorporate 'fast learner' into a brief summary or objective statement at the top of the CV, setting the tone for your ability to rapidly learn and grow in a role\n5. Use 'fast learner' to describe your approach to professional development, such as 'Proactive and fast learner, continuously seeking opportunities to expand skill set and stay up-to-date with industry trends'\n\n## Cover Letter\nI am excited to apply for the Tech Role at Growing Company because of the opportunity to join a dynamic team that shares my passion for technology. With a strong background in software development, I am confident that my skills and experience make me a great fit for this position.\n\nAs a full-stack developer, I have gained valuable experience in team collaboration and agile working, which I believe are essential for success in this role. My excellent communication skills, both written and verbal, will enable me to effectively collaborate with colleagues and communicate complex ideas. Additionally, my experience with various technologies, including Python, JavaScript, and SQL, demonstrates my ability to learn and adapt to new software and systems.\n\nI am eager to bring my skills and experience to Growing Company and contribute to the team's success. I am a fast learner, and I thrive in environments where no two days are the same. I would welcome the opportunity to discuss how my skills and experience align with the requirements of this role and how I can make a positive impact at Growing Company. I look forward to the opportunity to discuss this further and explain in greater detail why I am the ideal candidate for this position.",
     "status": "success",
     "failure_category": "hallucination",
-    "judge_result": {
-      "label": "good",
-      "reasoning": "The agent's analysis is thorough and provides actionable suggestions for improvement. The missing keyword 'fast learner' is correctly identified, and the improvement suggestions are relevant and helpful. The match score of 90 is reasonable given the CV's alignment with the job description. The agent's response is well-structured and easy to follow.",
-      "failure_category": ""
-    }
+    "rerun": true
   },
   {
     "name": "varied_contract_history",
@@ -662,60 +654,66 @@
     "category": "breaking",
     "cv": "\nJohn Smith | Data Analyst\nSQL, Python, Power BI\n3 years experience\n",
     "jd": "",
-    "label": null,
+    "label": "good",
     "comments": "",
     "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error"
+    "status": "error",
+    "failure_category": ""
   },
   {
     "name": "breaking_jd_only",
     "category": "breaking",
     "cv": "",
     "jd": "\nData Analyst - Tech Company\nRequired: SQL, Python, Power BI\n3+ years experience\n",
-    "label": null,
+    "label": "good",
     "comments": "",
     "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error"
+    "status": "error",
+    "failure_category": ""
   },
   {
     "name": "breaking_hallucination_trap",
     "category": "breaking",
     "cv": "\nAlice Smith | Quantum Computing Engineer\nEXPERIENCE\nLead Quantum Engineer - QuantumCorp (2020-Present)\n- Designed quantum circuits using Qiskit and Cirq\n- Implemented quantum error correction algorithms\n- Published research on quantum supremacy\nSKILLS\nQiskit, Cirq, Python, quantum algorithms, linear algebra\nEDUCATION\nPhD Quantum Physics - MIT (2020)\n",
     "jd": "\nQuantum Software Engineer - Deep Tech Startup\nRequired: Qiskit, quantum algorithms, Python, linear algebra\nNice to have: IBM Q experience, quantum error correction, publications\n3+ years experience\n",
-    "label": null,
+    "label": "good",
     "comments": "",
     "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error"
+    "status": "error",
+    "failure_category": ""
   },
   {
     "name": "breaking_contradictory_jd",
     "category": "breaking",
     "cv": "\nBob Johnson | Developer | bob@email.com\nEXPERIENCE\nDeveloper - TechCo (2020-Present)\n- Python and JavaScript development\n- SQL database management\nSKILLS\nPython, JavaScript, SQL, Git\nEDUCATION\nBSc Computing (2020)\n",
     "jd": "\nSenior Developer - Company\nRequired: 10+ years experience, entry level position\nMust have: Python, JavaScript, no experience needed\nSalary: \u00a3100,000 for junior role\nImmediate start, but position starts in 2 years\n",
-    "label": null,
+    "label": "bad",
     "comments": "",
     "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error"
+    "status": "error",
+    "failure_category": "hallucination"
   },
   {
     "name": "breaking_nonsense_input",
     "category": "breaking",
     "cv": "asdfghjkl qwerty zxcvbnm 12345 !@#$%",
     "jd": "lorem ipsum dolor sit amet consectetur adipiscing elit",
-    "label": null,
+    "label": "bad",
     "comments": "",
     "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error"
+    "status": "error",
+    "failure_category": "hallucination"
   },
   {
     "name": "breaking_very_generic_cv",
     "category": "breaking",
     "cv": "\nA Person | Job Seeker\nI am a hard worker with good communication skills.\nI learn fast and work well in a team.\nI have experience doing things at companies.\n",
     "jd": "\nData Analyst - Tech Company\nRequired: SQL, Python, Power BI, 3+ years experience\n",
-    "label": null,
+    "label": "good",
     "comments": "",
     "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error"
+    "status": "error",
+    "failure_category": ""
   },
   {
     "name": "breaking_future_date_cv",

@@ -135,6 +135,7 @@ name = "ats-gap-analyser"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "beautifulsoup4" },
     { name = "groq" },
     { name = "logfire" },
     { name = "minsearch" },
@@ -142,6 +143,7 @@ dependencies = [
     { name = "pdfplumber" },
     { name = "pydantic" },
     { name = "python-dotenv" },
+    { name = "requests" },
     { name = "streamlit" },
 ]
 
@@ -153,6 +155,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "beautifulsoup4", specifier = ">=4.14.3" },
     { name = "groq", specifier = ">=1.2.0" },
     { name = "jupyter", marker = "extra == 'dev'", specifier = ">=1.0.0" },
     { name = "logfire", extras = ["query"], specifier = ">=4.32.1" },
@@ -162,6 +165,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.0.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.0.3" },
     { name = "python-dotenv", specifier = ">=1.0.0" },
+    { name = "requests", specifier = ">=2.33.1" },
     { name = "streamlit", specifier = ">=1.57.0" },
 ]
 provides-extras = ["dev"]

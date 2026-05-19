@@ -15,6 +15,8 @@ attrs==26.1.0
     # via
     #   jsonschema
     #   referencing
+beautifulsoup4==4.14.3
+    # via ats-gap-analyser (pyproject.toml)
 blinker==1.9.0
     # via streamlit
 cachetools==7.1.2
@@ -181,6 +183,7 @@ referencing==0.37.0
     #   jsonschema-specifications
 requests==2.34.2
     # via
+    #   ats-gap-analyser (pyproject.toml)
     #   opentelemetry-exporter-otlp-proto-http
     #   streamlit
 rich==15.0.0
@@ -201,6 +204,8 @@ sniffio==1.3.1
     # via
     #   groq
     #   openai
+soupsieve==2.8.3
+    # via beautifulsoup4
 starlette==1.0.0
     # via streamlit
 streamlit==1.57.0
@@ -217,6 +222,7 @@ typing-extensions==4.15.0
     # via
     #   altair
     #   anyio
+    #   beautifulsoup4
     #   groq
     #   logfire
     #   openai

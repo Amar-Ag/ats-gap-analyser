@@ -99,16 +99,25 @@ class ATSTools:
         response = self.client.chat.completions.create(
             model=self.model,
             messages=[
-                {"role": "system", "content": f"""Extract structured requirements from a job description.
+                        {"role": "system", "content": f"""Extract structured requirements from a job description.
 
-                For OR conditions like "Power BI or Tableau" or "AWS or GCP":
-                - Add BOTH individual skills to required_skills
-                - Also add the full OR phrase to or_conditions (e.g. "Power BI or Tableau")
+                        For OR conditions like "Power BI or Tableau" or "AWS or GCP":
+                        - Add BOTH individual skills to required_skills
+                        - Also add the full OR phrase to or_conditions (e.g. "Power BI or Tableau")
 
-                This allows the scorer to know which skills are interchangeable alternatives.
-                If experience years is not explicitly mentioned in the JD, set experience_years to 0.
+                        This allows the scorer to know which skills are interchangeable alternatives.
+                        If experience years is not explicitly mentioned in the JD, set experience_years to 0.
 
-                Return only a JSON object matching this schema: {schema}. Return only the JSON, no other text."""},
+                        IMPORTANT: Do not include the following as required_skills or keywords:
+                        - Company names (e.g. "Tech Company", "FinTech Company", "Logistics Company")
+                        - Location names (e.g. "London", "New York", "UK")
+                        - Generic descriptors (e.g. "fast learner", "team player", "enthusiastic")
+                        - Job title of the role being applied for (e.g. "Data Analyst", "Software Engineer")
+
+                        Only extract technical skills, domain knowledge, tools, certifications, 
+                        and years of experience as requirements.
+
+                        Return only a JSON object matching this schema: {schema}. Return only the JSON, no other text."""},
                 {"role": "user", "content": job_description}
             ],
             response_format={"type": "json_object"},

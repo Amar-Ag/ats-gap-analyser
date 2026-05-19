@@ -36,10 +36,54 @@ with col1:
 
 with col2:
     st.subheader("Job Description")
+    
+    # URL option
+    jd_url = st.text_input(
+        "Paste job posting URL (optional)",
+        placeholder="https://company.com/careers/job-123"
+    )
+    
+    if jd_url:
+        if st.button("📥 Fetch from URL"):
+            try:
+                import requests
+                from bs4 import BeautifulSoup
+                
+                with st.spinner("Fetching job description..."):
+                    response = requests.get(jd_url, timeout=10, headers={
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                    })
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    
+                    # remove noise
+                    for tag in soup(['script', 'style', 'nav', 'footer', 'header', 
+                                'iframe', 'img', 'button', 'form']):
+                        tag.decompose()
+                    
+                    # try to find main content area first
+                    main_content = (
+                        soup.find('main') or 
+                        soup.find('article') or
+                        soup.find(attrs={'class': lambda x: x and any(
+                            word in ' '.join(x).lower() 
+                            for word in ['job', 'posting', 'description', 'content', 'detail']
+                        ) if isinstance(x, list) else False}) or
+                        soup.find('body')
+                    )
+                    
+                    fetched_text = main_content.get_text(separator='\n', strip=True)[:5000]
+                
+                st.session_state.jd_text = fetched_text
+                st.success(f"Fetched {len(fetched_text)} characters from URL")
+            except Exception as e:
+                st.error(f"Could not fetch URL: {str(e)}. Please paste the job description manually.")
+                
+    
     jd_text = st.text_area(
         "JD",
-        placeholder="Paste the job description here...",
-        height=350,
+        value=st.session_state.get('jd_text', ''),
+        placeholder="Or paste the job description here...",
+        height=300,
         label_visibility="collapsed"
     )
 
