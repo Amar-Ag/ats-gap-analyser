@@ -7,6 +7,11 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from src.agent.agent import run_agent
 
+if 'analysis_count' not in st.session_state:
+    st.session_state.analysis_count = 0
+
+MAX_ANALYSES = 3
+
 st.set_page_config(layout="wide", page_title="ATS Gap Analyser")
 
 st.title("ATS Gap Analyser")
@@ -96,14 +101,17 @@ st.divider()
 if analyse_button:
     if not cv_text or not jd_text:
         st.warning("Please provide both your CV and the job description.")
+    elif st.session_state.analysis_count >= MAX_ANALYSES:
+        st.error(f"You've reached the limit of {MAX_ANALYSES} analyses per session. Please refresh the page to start a new session.")
     else:
         try:
-            with st.spinner("Analysing your CV against the job description..."):
+            with st.spinner("Analysing your CV..."):
                 result = run_agent(
                     f"Analyse my CV against this job description.\nCV:\n{cv_text}\nJD:\n{jd_text}"
                 )
+            st.session_state.analysis_count += 1
             st.divider()
-            st.subheader("Results")
+            st.subheader(f"Results (Analysis {st.session_state.analysis_count}/{MAX_ANALYSES})")
             st.markdown(result)
         except Exception as e:
             if '429' in str(e):
@@ -115,9 +123,10 @@ with st.sidebar:
     st.header("How to use")
     st.markdown("""
 1. Upload your CV as a PDF or paste the text
-2. Paste the job description
+2. Paste the job description or fetch from URL
 3. Click **Analyse My CV**
 4. Get your match score, gaps, and a tailored cover letter
     """)
     st.divider()
+    st.warning(f"⚠️ Demo limit: {MAX_ANALYSES} analyses per session")
     st.caption("Built with Groq + llama-3.3-70b-versatile")
