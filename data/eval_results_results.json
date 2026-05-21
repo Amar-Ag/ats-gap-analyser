@@ -63,7 +63,7 @@
     "rerun": true,
     "judge_result": {
       "label": "good",
-      "reasoning": "The agent's response is accurate and helpful. The CV meets all the required skills and experience mentioned in the job description. The agent's suggestions for improvement are reasonable and based on the job description. The match score is 100, which is reasonable given that the CV meets all the required skills. The agent did not attempt to do CV analysis on a non-CV/JD input.",
+      "reasoning": "The agent's response is accurate and helpful. The CV meets all the required skills and experience listed in the job description. The agent's suggestions for improvement are reasonable and based on the job description. The match score is 100, indicating a perfect match between the CV and the job description.",
       "failure_category": ""
     }
   },
@@ -109,7 +109,12 @@
     "label": "good",
     "comments": "\"Willingness to learn\" is not a keyword \u2014 it's a soft descriptor in the JD. ",
     "failure_category": "",
-    "rerun": true
+    "rerun": true,
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent's response is overly optimistic about the CV's match to the job description. The CV does not mention 'cross-functional collaboration' or 'teamwork' in the work experience section, despite the agent suggesting it as an improvement. Additionally, the agent suggests adding 'machine learning' to the skills section, but the CV already mentions a 'Machine learning classifier for sentiment analysis' in the education section.",
+      "failure_category": "wrong_score"
+    }
   },
   {
     "name": "happy_project_manager",
@@ -123,7 +128,7 @@
     "failure_category": "",
     "judge_result": {
       "label": "bad",
-      "reasoning": "The agent failed to recognize that the CV already mentions 'financial services experience' in the cover letter, which is a phrasing mismatch failure.",
+      "reasoning": "The agent incorrectly flagged 'financial services experience' as a missing keyword. Upon reviewing the CV, it is clear that Rachel has experience working with FTSE 100 clients, which is a subset of the financial services industry. This is a phrasing_mismatch failure.",
       "failure_category": "phrasing_mismatch"
     }
   },
@@ -173,7 +178,7 @@
     "failure_category": "",
     "judge_result": {
       "label": "bad",
-      "reasoning": "The agent failed to identify 'healthcare data experience' as a requirement that could be met by mentioning 'healthcare sector' in the cover letter. Additionally, the agent incorrectly suggested adding 'data visualisation' to the Skills section, as it is already implied by the mention of Power BI.",
+      "reasoning": "The agent failed to identify 'healthcare data experience' as a requirement that can be met by mentioning 'healthcare sector' in the cover letter. Additionally, the agent incorrectly suggested adding 'data visualisation' to the Skills section, as it is already implied by the mention of Power BI.",
       "failure_category": "phrasing_mismatch"
     }
   },
@@ -216,9 +221,14 @@
     "jd": "\nBackend Python Engineer - FinTech Company\nRequired: Python, REST APIs, PostgreSQL, AWS, Docker\nNice to have: Kubernetes, FastAPI, test-driven development\n3+ years experience required\n",
     "label": "bad",
     "comments": "function call ",
-    "result": "ERROR: Error code: 400 - {'error': {'message': \"Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.\", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=score_cv[]{\"cv_text\":\"Tom Brown | Graphic Designer | tom@email.com\\\\nEXPERIENCE\\\\nSenior Graphic Designer - AgencyCo (2019-Present, 5 years)\\\\n- Designed brand identities for 50+ clients\\\\n- Created marketing materials using Adobe Creative Suite\\\\n- Collaborated with developers on website designs\\\\n- Managed client relationships and project timelines\\\\nSKILLS\\\\nAdobe Photoshop, Illustrator, InDesign, Figma, HTML, CSS basics\\\\nEDUCATION\\\\nBA Graphic Design - Central Saint Martins (2019)\",\"requirements\":{\"job_title\": \"Backend Python Engineer\", \"required_skills\": [\"Python\", \"REST APIs\", \"PostgreSQL\", \"AWS\", \"Docker\"], \"nice_to_have_skills\": [\"Kubernetes\", \"FastAPI\", \"Test-Driven Development\"], \"experience_years\": 3, \"keywords\": [\"FinTech\", \"Backend\", \"Python\", \"Cloud\"]}}</function>'}}",
-    "status": "error",
-    "failure_category": "incorrect_refusal"
+    "result": "I can only help with CV and job description analysis when both the CV and job description are relevant to each other. In this case, the CV is for a Graphic Designer and the job description is for a Backend Python Engineer, which are two very different roles. Please provide a job description for a Graphic Designer or a CV for a Backend Python Engineer so I can assist you with the analysis.",
+    "status": "success",
+    "failure_category": "incorrect_refusal",
+    "judge_result": {
+      "label": "good",
+      "reasoning": "The agent correctly identified the mismatch between the CV and job description and asked for proper input. This is a correct refusal.",
+      "failure_category": ""
+    }
   },
   {
     "name": "varied_minimal_cv",
@@ -232,8 +242,8 @@
     "failure_category": "",
     "judge_result": {
       "label": "bad",
-      "reasoning": "The agent failed to identify the 'data analysis experience' requirement as met in the CV, and also incorrectly flagged 'data analysis experience' as a missing keyword. Additionally, the agent failed to recognize the mention of SQL in the CV as meeting the SQL requirement.",
-      "failure_category": "phrasing_mismatch"
+      "reasoning": "The agent failed to identify the 'data analysis experience' requirement as met in the CV, and also failed to recognize that the 'cloud platforms' requirement is met with the mention of 'some SQL' which implies familiarity with database systems. Additionally, the agent's match score is too low considering the CV meets some of the requirements.",
+      "failure_category": "wrong_score"
     }
   },
   {
@@ -260,9 +270,14 @@
     "jd": "\nFull Stack Developer - Tech Company\nRequired: JavaScript or Python, React or similar framework, REST APIs, databases\nNice to have: AWS, Docker, CI/CD\n2+ years experience required\n",
     "label": "good",
     "comments": "Function call",
-    "result": "ERROR: Error code: 400 - {'error': {'message': \"Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.\", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=score_cv[]{\"cv_text\": \"Mike Johnson | Self-taught Developer | mike@email.com\\\\nEXPERIENCE\\\\nFreelance Web Developer (2020-Present, 4 years)\\\\n- Built 30+ websites using React, Node.js, and MongoDB\\\\n- Automated client workflows using Python scripts\\\\n- Managed AWS deployments for small businesses\\\\nSKILLS\\\\nJavaScript, React, Node.js, Python, MongoDB, AWS, Git\\\\nEDUCATION\\\\nSelf-taught - online courses (Udemy, Coursera, freeCodeCamp)\\\\nNo formal degree\", \"requirements\": {\"job_title\": \"Full Stack Developer\", \"required_skills\": [\"JavaScript\", \"Python\", \"React\", \"REST APIs\", \"databases\"], \"nice_to_have_skills\": [\"AWS\", \"Docker\", \"CI/CD\"], \"experience_years\": 2, \"keywords\": [\"Full Stack\", \"JavaScript\", \"Python\", \"React\", \"REST APIs\", \"databases\", \"AWS\", \"Docker\", \"CI/CD\"]}}</function>'}}",
-    "status": "error",
-    "failure_category": ""
+    "result": "## Match Score\n85/100 \u2014 The candidate has relevant experience and some required skills, but lacks experience with REST APIs and databases.\n\n## Missing Keywords\n* REST APIs\n* databases\n* CI/CD\n* Docker\n\n## Improvement Suggestions\n1. Add 'REST APIs' to the SKILLS section to highlight experience with API development and integration.\n2. Include 'CI/CD' in the EXPERIENCE section, describing how you implemented continuous integration and deployment pipelines in your freelance projects.\n3. Mention 'Docker' in the SKILLS section to showcase containerization skills and experience with Docker-based deployments.\n4. Consider adding a 'TECHNICAL SKILLS' subsection under SKILLS to categorize and emphasize proficiency in specific technologies like REST APIs, CI/CD, and Docker.\n5. In the EXPERIENCE section, describe a project where you utilized Docker for containerization and deployment, and highlight the benefits of using CI/CD pipelines in your workflow.\n\n## Cover Letter\nI am excited to apply for the Full Stack Developer role at Tech Company because it aligns with my passion for building innovative web applications using React and Node.js. With over 4 years of experience as a freelance web developer, I am confident in my ability to design and develop scalable solutions.\n\nMy achievements as a freelance web developer have equipped me with the skills required for this role. I have built 30+ websites using React, Node.js, and MongoDB, demonstrating my proficiency in JavaScript and React. Additionally, I have automated client workflows using Python scripts, showcasing my ability to work with multiple programming languages. My experience with AWS deployments has also given me a solid understanding of cloud infrastructure.\n\nI am eager to bring my skills and experience to Tech Company and contribute to the development of cutting-edge web applications. I am excited about the opportunity to work with a talented team and learn from their expertise. I would welcome the chance to discuss my application and how my skills align with the company's requirements. Please feel free to contact me at mike@email.com to arrange a conversation.",
+    "status": "success",
+    "failure_category": "",
+    "judge_result": {
+      "label": "good",
+      "reasoning": "The agent's response is accurate and helpful. The missing keywords are correctly identified as 'REST APIs', 'databases', 'CI/CD', and 'Docker'. The improvement suggestions are relevant and provide actionable advice for the candidate to strengthen their CV. The match score is reasonable, given the candidate's experience and skills. The agent did not attempt to analyze a non-CV/JD input.",
+      "failure_category": ""
+    }
   },
   {
     "name": "varied_gap_in_employment",
@@ -277,8 +292,8 @@
     "rerun": true,
     "judge_result": {
       "label": "bad",
-      "reasoning": "The agent's analysis is mostly correct, but there are some issues. The missing keyword 'Financial Services' is indeed missing from the CV, but the agent's suggestions are overly broad and not directly related to the JD. The agent should have focused on the specific skills and experience required by the JD. Additionally, the agent's match score of 80 is reasonable, but the analysis could be more detailed. The agent's refusal to analyze the cover letter is correct, but the analysis could be more nuanced.",
-      "failure_category": "hallucination"
+      "reasoning": "The agent's analysis is mostly correct, but there are some issues. The missing keyword 'Financial Services' is indeed missing from the CV, but the agent's suggestions are not entirely accurate. The CV does mention 'HealthCo' which is a financial services company, so it's not entirely clear why the agent is suggesting adding 'Financial Services' to the Skills section. Additionally, the agent's score of 80 seems reasonable given the CV's strengths and weaknesses.",
+      "failure_category": "phrasing_mismatch"
     }
   },
   {
@@ -291,7 +306,12 @@
     "result": "## Match Score\n90/100 \u2014 The CV does not explicitly mention required skills 'computers' and 'software', but experience years exceed the requirement.\n\n## Missing Keywords\n* computers\n* software\n\n## Improvement Suggestions\n1. Add the keyword 'computers' to the skills section, for example, 'Familiarity with computer systems and hardware'.\n2. Include the keyword 'software' in the work experience section, such as 'Developed and maintained software applications using various technologies'.\n3. In the education section, mention 'software development' as part of the BSc Computing course, for example, 'BSc Computing with a focus on software development and computer systems'.\n4. In the skills section, consider adding 'computer programming' as a skill to complement the existing programming languages listed, such as 'Python, JavaScript, SQL, Git, computer programming'.\n5. In the work experience section, use the keyword 'software' in a bullet point, for example, 'Designed and implemented software solutions to improve team collaboration and agile working'.\n\n## Cover Letter\nI am excited to apply for the Tech Role at Growing Company because of the opportunity to join a dynamic team that shares my passion for technology. With over 4 years of experience as a Software Developer at TechCo, I am confident that my skills and achievements make me an ideal fit for this position.\n\nAs a seasoned developer, I have a strong track record of delivering results in a team environment, utilizing my expertise in full stack development, database management, and API development. My experience working collaboratively in an agile setting has honed my communication skills, allowing me to effectively convey complex ideas to both technical and non-technical stakeholders. I am eager to bring my skills and passion to a new challenge and contribute to the success of Growing Company.\n\nI am excited about the opportunity to discuss my application and how my skills align with the requirements of the Tech Role. I am a quick learner, and my experience with a range of technologies has taught me to adapt to new systems and software efficiently. I would welcome the opportunity to discuss my application and how I can contribute to the success of Growing Company. Please feel free to contact me at chris@email.com to arrange a conversation.",
     "status": "success",
     "failure_category": "hallucination",
-    "rerun": true
+    "rerun": true,
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent failed to recognize that 'computers' and 'software' are mentioned in the CV, but not in the required skills section. The agent also failed to recognize that the CV meets the 'fast learner' requirement mentioned in the JD.",
+      "failure_category": "phrasing_mismatch"
+    }
   },
   {
     "name": "varied_contract_history",
@@ -334,14 +354,14 @@
     "jd": "\nJunior Data Analyst - Small Startup\nRequired: Basic SQL, Excel, some Python\n0-2 years experience preferred\n",
     "label": "bad",
     "comments": "function call",
-    "result": "## Step 1: Match Score\nThe match score is 75, indicating a moderate match between the candidate's CV and the job description.\n\n## Step 2: Missing Keywords\nThe missing keywords are \"Startup\", indicating that the candidate's CV does not directly mention experience or skills related to working in a startup environment.\n\n## Step 3: Improvement Suggestions\nThe improvement suggestions include:\n- Add 'Startup' to the Skills section to directly match the job description's required skills.\n- Consider including 'Startup experience' in the Experience section to highlight relevant work history.\n- Include 'Startup' in the summary or introduction section to increase keyword visibility.\n- Mention 'Startup' in the context of a specific project or achievement in the Experience section to provide concrete evidence of expertise.\n- Create a separate section for 'Achievements' or 'Projects' and include 'Startup' to showcase relevant accomplishments.\n\n## Step 4: Cover Letter\nThe cover letter is:\n\"I am excited to apply for the Junior Data Analyst position at your startup because I am eager to leverage my skills and experience to drive impact in a new and innovative environment. Although my background is in leading large-scale data science initiatives, I am drawn to the opportunity to contribute to a smaller team and help shape the company's data-driven approach.\nAs a seasoned data scientist with a strong foundation in machine learning and data analysis, I am confident that my skills can be adapted to meet the requirements of this role. My experience with Python, SQL, and data management can be applied to support the company's data analysis needs, even if it's a departure from my current role as a Principal Data Scientist. I am a quick learner, and I thrive in environments where I can learn and grow with the team.\nI would welcome the opportunity to discuss how my skills and experience can be leveraged to support the company's goals. Despite my non-traditional background for this role, I am excited about the prospect of joining the team and contributing to the company's success. I look forward to the opportunity to speak with you further and explore how I can make a meaningful impact as a Junior Data Analyst.\"",
+    "result": "## Match Score\n20/100 \u2014 The CV has more experience than required and lacks required keywords, resulting in a low match score.\n\n## Missing Keywords\n* Junior Data Analyst\n* Excel\n\n## Improvement Suggestions\n1. Consider adding 'Junior Data Analyst' to your experience or skills section to demonstrate your ability to work with junior team members or in junior roles.\n2. Add 'Excel' to your skills section to showcase your proficiency in data analysis and visualization using this popular tool.\n3. Emphasize your data analysis skills by incorporating phrases like 'data analysis using Excel' or 'data visualization with Excel' in your work experience or skills section.\n4. Highlight your experience working with data by adding keywords like 'data modeling' or 'data mining' to your skills section, and consider mentioning 'Excel' as a tool used for these tasks.\n5. Incorporate 'Excel' into your work experience by describing a project where you 'utilized Excel for data analysis and visualization' to demonstrate your practical skills.\n\n## Cover Letter\nI am excited to apply for the Junior Data Analyst role at this innovative startup because I am eager to leverage my expertise to drive growth and success in a new and challenging context. Although my background is in leading large-scale machine learning platforms, I am drawn to the opportunity to bring my skills to a smaller, agile team and contribute to the company's mission.\n\nAs a seasoned data scientist, I have developed a strong foundation in data analysis, which I believe can be adapted to the Junior Data Analyst role. My experience with SQL, Python, and data management can be applied to support the startup's data-driven decision-making. Additionally, my expertise in leading teams and communicating complex ideas can facilitate collaboration and drive results.\n\nI acknowledge that my experience may not directly align with the job requirements, but I am confident that my transferable skills, such as problem-solving and data analysis, can compensate for the gap. I would welcome the opportunity to discuss how my skills can be adapted to support the startup's goals. I look forward to the chance to contribute to the company's success and learn from the team.",
     "status": "success",
     "failure_category": "hallucination",
     "rerun": true,
     "judge_result": {
       "label": "bad",
-      "reasoning": "The agent failed to identify the correct missing keywords and provided incorrect improvement suggestions. The missing keyword 'Startup' is not entirely accurate as the CV does mention 'Small Startup' in the job description, but it's not a direct match. However, the agent failed to identify the correct missing keywords 'Basic' and 'Excel' which are required in the job description.",
-      "failure_category": "hallucination"
+      "reasoning": "The agent incorrectly identified 'Junior Data Analyst' as a missing keyword, which is present in the job description. Additionally, the agent failed to recognize that the CV meets most of the required skills, resulting in a low match score.",
+      "failure_category": "phrasing_mismatch"
     }
   },
   {
@@ -403,7 +423,12 @@
     "result": "## Match Score\n100/100 \u2014 The CV matches all required skills and experience years.\n\n## Missing Keywords\nNone\n\n## Improvement Suggestions\n1. Consider adding 'data analysis' as a keyword in your skills section or work experience to match the job description requirements\n2. Add 'machine learning' or 'natural language processing' to your skills section if you have experience in these areas to increase your visibility\n3. Include 'cloud computing' in your skills section or work experience to demonstrate your expertise in this area\n4. Use specific keywords like 'data visualization' or 'business intelligence' in your work experience to describe your achievements\n5. Mention 'technical certifications' such as 'Google Data Analytics' or 'Microsoft Certified: Data Analyst Associate' in your education section to enhance your profile\n\n## Cover Letter\nI am excited to apply for the Data Analyst role at UK Company, drawn by the opportunity to leverage my technical skills in driving business growth. With over 4 years of experience as an Analista Senior de Datos at EmpresaTech, I am confident in my ability to make a meaningful impact.\n\nMy achievements directly align with the job requirements, including constructing complex SQL queries, creating insightful dashboards in Power BI, and analyzing data with Python and pandas. These skills have enabled me to drive informed decision-making and optimize business processes in my current role. I am eager to bring my expertise to UK Company and contribute to the success of the team.\n\nAs a highly skilled Data Analyst with a strong educational foundation in Estad\u00edstica, I am well-equipped to hit the ground running. I would welcome the opportunity to discuss my application and how my skills can support the goals of UK Company. Please do not hesitate to contact me at carlos@email.com to arrange a conversation.",
     "status": "success",
     "failure_category": "",
-    "rerun": true
+    "rerun": true,
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent's response contains a phrasing_mismatch failure. The JD requires 'cloud platforms' but the CV mentions 'cloud computing', which is a different term. The agent should have flagged this as a phrasing_mismatch instead of suggesting the CV is missing 'cloud computing'.",
+      "failure_category": "phrasing_mismatch"
+    }
   },
   {
     "name": "edge_cv_only_no_jd",
@@ -415,7 +440,12 @@
     "result": "I can only help with CV and job description analysis if you provide both a CV and a job description. You've provided your CV, but I also need a job description to proceed. Please provide a job description, and I'll be happy to help.",
     "status": "success",
     "failure_category": "",
-    "rerun": true
+    "rerun": true,
+    "judge_result": {
+      "label": "good",
+      "reasoning": "The agent correctly identified the need for a job description to proceed with analysis. This is a correct refusal to analyze the CV without the required input.",
+      "failure_category": ""
+    }
   },
   {
     "name": "edge_senior_applying_junior",
@@ -427,7 +457,12 @@
     "result": "## Match Score\n85/100 \u2014 Candidate has required Python skill but lacks experience and Git keyword.\n\n## Missing Keywords\n* Git\n\n## Improvement Suggestions\n1. Add 'Git' to the SKILLS section to demonstrate proficiency in version control systems.\n2. Consider listing 'Git' under a separate 'Technical Tools' subsection to improve ATS visibility.\n3. Include 'Git' in the EXPERIENCE section, specifically under the VP Engineering role, to provide context for its application.\n4. Mention 'Git' in the EDUCATION section, if relevant, to highlight its coverage in the MSc Computer Science program at MIT.\n5. Create a 'Development Tools' section and add 'Git' to it, to clearly showcase expertise in software development tools.\n\n## Cover Letter\nI am excited to apply for the Junior Software Developer role at this innovative startup, drawn by the opportunity to contribute my technical skills and experience to a dynamic team. Although my current role as VP of Engineering may seem like a departure from this position, I am eager to leverage my programming foundations, particularly in Python, to support the company's growth.\n\nThroughout my career, I have developed strong technical skills, including proficiency in Python, which aligns with the job requirements. Additionally, my experience with strategic planning and stakeholder management has honed my ability to collaborate effectively and communicate complex ideas, skills that can be valuable in a development team. My academic background, with an MSc in Computer Science from MIT, provides a solid foundation in software development principles.\n\nI acknowledge that my current role may not be a direct match for this position, but I am confident that my transferable skills, enthusiasm, and strong work ethic can compensate. I am excited about the prospect of joining this startup and contributing to its success. I would welcome the opportunity to discuss how my skills and experience can support the company's goals and look forward to the chance to meet with you to explore this further.",
     "status": "success",
     "failure_category": "wrong_score",
-    "rerun": true
+    "rerun": true,
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent incorrectly flagged 'Git' as missing, despite it being mentioned in the CV. The agent also failed to recognize that the CV meets all required skills, resulting in a low match score.",
+      "failure_category": "phrasing_mismatch"
+    }
   },
   {
     "name": "edge_duplicate_skills",
@@ -439,7 +474,12 @@
     "result": "## Match Score\n85/100 \u2014 The candidate has the required technical skills but lacks the required experience years.\n\n## Missing Keywords\nNone\n\n## Improvement Suggestions\n1. Consider adding dbt to your technical skills section to demonstrate expertise in data transformation and loading.\n2. Include Snowflake in your list of databases or data warehousing tools to showcase familiarity with cloud-based data storage solutions.\n3. To demonstrate financial domain knowledge, add keywords like financial planning, budgeting, or financial analysis to your skills section or experience descriptions.\n4. Emphasize your ability to work with financial data by adding phrases like financial data modeling or financial reporting to your experience descriptions.\n5. Highlight your understanding of financial concepts by incorporating terms like financial forecasting or financial metrics into your skills section or experience descriptions.\n\n## Cover Letter\nI am excited to apply for the Data Analyst role at Finance Company because of the opportunity to leverage my technical skills in a financial context. With a strong background in SQL, Python, and Power BI, I am confident that I can make a valuable contribution to the team. My experience as a Data Analyst at DataCo has equipped me with the skills to collect, analyze, and present complex data insights, which I believe are essential for this role.\n\nThroughout my career, I have achieved significant milestones, including developing and implementing data models using SQL and Power BI. I have also utilized Python to automate data processes, resulting in increased efficiency and accuracy. These achievements directly align with the job requirements, demonstrating my ability to work with the necessary tools and technologies. My analytical skills, combined with my experience in data analysis, enable me to drive business growth through data-driven decision-making.\n\nAlthough I may not have direct experience in the financial domain, I am eager to apply my transferable skills to this new context. I am a quick learner, and my strong foundation in programming languages and data analysis will enable me to adapt to the financial industry. I would welcome the opportunity to discuss my application and how I can contribute to Finance Company. Please feel free to contact me to arrange an interview, and I look forward to exploring this opportunity further.",
     "status": "success",
     "failure_category": "",
-    "rerun": true
+    "rerun": true,
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent's response contains a phrasing_mismatch failure. The JD requires '2+ years experience', but the CV does not explicitly mention the number of years. However, the CV does mention '2021-Present', which implies at least 2 years of experience. The agent should have been more careful in its analysis.",
+      "failure_category": "phrasing_mismatch"
+    }
   },
   {
     "name": "edge_very_short_jd",
@@ -549,7 +589,7 @@
     "failure_category": "",
     "judge_result": {
       "label": "good",
-      "reasoning": "The agent correctly refused to analyze the CV and JD, as the input is not related to CV/JD analysis. The response is helpful and provides alternative ways to stay up-to-date with current events.",
+      "reasoning": "The agent correctly refused to analyze the input as a CV/JD analysis request and instead provided a helpful response. This is a correct refusal.",
       "failure_category": ""
     }
   },
@@ -597,7 +637,7 @@
     "failure_category": "",
     "judge_result": {
       "label": "good",
-      "reasoning": "The agent response is correct as it is not a CV/JD analysis request. The task requires a function call which is not supported by the provided functions, so the agent is refusing to help.",
+      "reasoning": "The agent response is correct as it is not a CV/JD analysis request. The task requires a function call which is not supported by the provided functions, so the agent is not attempting to do CV analysis on a non-CV/JD input.",
       "failure_category": ""
     }
   },
@@ -640,9 +680,14 @@
     "jd": "",
     "label": "good",
     "comments": "",
-    "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error",
-    "failure_category": ""
+    "result": "I can only help with CV and job description analysis if both are provided. Please also provide a job description before I can proceed with the analysis.",
+    "status": "success",
+    "failure_category": "",
+    "judge_result": {
+      "label": "good",
+      "reasoning": "The agent correctly refused to proceed without a job description, which is a valid input. This is a correct response to a non-CV/JD input.",
+      "failure_category": ""
+    }
   },
   {
     "name": "breaking_jd_only",
@@ -651,9 +696,14 @@
     "jd": "\nData Analyst - Tech Company\nRequired: SQL, Python, Power BI\n3+ years experience\n",
     "label": "good",
     "comments": "",
-    "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error",
-    "failure_category": ""
+    "result": "I can only help with CV and job description analysis if you provide both a CV and a job description. You've provided a job description, but I'm missing your CV. Please provide your CV to proceed.",
+    "status": "success",
+    "failure_category": "",
+    "judge_result": {
+      "label": "good",
+      "reasoning": "The agent correctly identified the need for a CV and job description to proceed with analysis. This is a correct refusal to analyze the job description alone.",
+      "failure_category": ""
+    }
   },
   {
     "name": "breaking_hallucination_trap",
@@ -662,9 +712,14 @@
     "jd": "\nQuantum Software Engineer - Deep Tech Startup\nRequired: Qiskit, quantum algorithms, Python, linear algebra\nNice to have: IBM Q experience, quantum error correction, publications\n3+ years experience\n",
     "label": "good",
     "comments": "",
-    "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error",
-    "failure_category": ""
+    "result": "## Match Score\n100/100 \u2014 The CV perfectly matches the job requirements, demonstrating all the necessary skills and experience.\n\n## Missing Keywords\nNone\n\n## Improvement Suggestions\n1. Add 'IBM Q experience' to the SKILLS section to demonstrate familiarity with IBM's quantum computing platform.\n2. Include 'IBM Q experience' in a new bullet point under the Lead Quantum Engineer role, such as '- Utilized IBM Q experience to develop and optimize quantum circuits'.\n3. Create a new subsection under EXPERIENCE, such as 'Quantum Computing Platforms', and include 'IBM Q experience' as a key skill or experience.\n4. Mention 'IBM Q experience' in the EDUCATION section, if relevant, such as 'PhD Quantum Physics - MIT (2020), with research focused on IBM Q quantum computing platform'.\n5. Add a new bullet point under the SKILLS section, such as '- Proficient in IBM Q experience, with knowledge of its applications in quantum computing and research'.\n\n## Cover Letter\nI am excited to apply for the Quantum Software Engineer role at Deep Tech Startup because of the company's innovative approach to quantum computing and its potential to revolutionize the field. With my strong background in quantum physics and experience in designing quantum circuits, I am confident that I can make a significant contribution to the team.\n\nAs a Lead Quantum Engineer at QuantumCorp, I have successfully designed quantum circuits using Qiskit and Cirq, implemented quantum error correction algorithms, and published research on quantum supremacy. These achievements directly align with the job requirements, demonstrating my expertise in Qiskit, quantum algorithms, and linear algebra. My experience in programming with Python has also enabled me to efficiently develop and test quantum software.\n\nI am eager to bring my skills and experience to Deep Tech Startup and contribute to the development of cutting-edge quantum software. I am confident that my passion for quantum computing and my ability to work on complex projects will make me a valuable asset to the team. I would welcome the opportunity to discuss my application and how I can contribute to the company's success.",
+    "status": "success",
+    "failure_category": "",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent incorrectly identified 'IBM Q experience' as missing, despite it being mentioned in the CV. The agent also provided multiple suggestions to include 'IBM Q experience' in the CV, which is not necessary.",
+      "failure_category": "hallucination"
+    }
   },
   {
     "name": "breaking_contradictory_jd",
@@ -676,7 +731,12 @@
     "result": "## Match Score\n85/100 \u2014 The candidate has required skills but lacks experience.\n\n## Missing Keywords\nNone\n\n## Improvement Suggestions\n1. Consider adding 'data analysis' to your skills section as it is a highly relevant keyword in the industry\n2. Include 'cloud computing' in your skills section to demonstrate expertise in emerging technologies\n3. Add 'machine learning' or 'natural language processing' to your skills section to showcase advanced technical skills\n4. Incorporate 'project management' into your work experience section to highlight your ability to manage projects\n5. Add 'digital marketing' to your skills section to demonstrate a broader range of skills and versatility as a developer\n\n## Cover Letter\nI am excited to apply for the Senior Developer role at Company, as the unique blend of junior and senior aspects sparked my interest in growing with the organization. The opportunity to start immediately, despite the position beginning in two years, presents a chance to prepare and contribute to the company's long-term goals.\n\nWith over 2 years of experience in Python and JavaScript development at TechCo, I have achieved significant milestones, including successfully managing SQL databases and collaborating on projects using Git. Although the job description mentions a preference for 10+ years of experience, I believe my passion for development and transferable skills, such as adaptability and eagerness to learn, can compensate for the gap. My experience with Python, JavaScript, and SQL aligns with the job requirements, demonstrating my potential to make a valuable contribution.\n\nI would welcome the opportunity to discuss my application and how my skills can be adapted to meet the company's needs. I am confident that my strong foundation in programming and enthusiasm for growth make me an ideal candidate for this unique role. I look forward to the chance to discuss my application and learn more about the company's vision for the Senior Developer position.",
     "status": "success",
     "failure_category": "hallucination",
-    "rerun": true
+    "rerun": true,
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent failed to identify the obvious mismatch between the job description and the candidate's experience. The job description requires 10+ years of experience, but the candidate has only 2 years of experience. The agent should have flagged this as a significant gap.",
+      "failure_category": "hallucination"
+    }
   },
   {
     "name": "breaking_nonsense_input",
@@ -688,7 +748,12 @@
     "result": "## Match Score\n100/100 \u2014 The CV is a perfect match for the job description.\n\n## Missing Keywords\nNone\n\n## Improvement Suggestions\n1. Since the CV does not contain any relevant keywords, consider adding technical skills such as 'data analysis', 'cloud computing', or 'cybersecurity' to the skills section.\n2. Incorporate action verbs like 'managed', 'created', or 'developed' in the work experience section to demonstrate expertise and increase ATS keyword matching.\n3. Add relevant software proficiency, such as 'Adobe Creative Suite' or 'Microsoft Office', to the skills section to enhance the CV's technical skills profile.\n4. Include specific programming languages, like 'Java' or 'Python', in the skills section to increase the CV's relevance for technical roles.\n5. Use keywords from the job description, such as 'project management' or 'digital marketing', in the professional summary or work experience section to demonstrate expertise and increase ATS compatibility.\n\n## Cover Letter\nI am excited to apply for this role because the company's commitment to innovation resonates with my passion for driving progress. The opportunity to be part of a team that is pushing boundaries in their field is a thrilling prospect that aligns with my career aspirations.\n\nWith a strong foundation in creative problem-solving, I have achieved significant success in my previous endeavors, including developing novel solutions and collaborating with cross-functional teams. My experience in strategic planning and implementation has yielded impressive results, demonstrating my ability to drive projects forward and achieve goals. These accomplishments have prepared me to make a meaningful contribution to this role.\n\nI am confident that my skills and experience make me a strong fit for this position. I would welcome the opportunity to discuss how my abilities can support the company's mission. I look forward to the chance to contribute to the team's success and explore how my skills can be leveraged to drive growth and innovation.",
     "status": "success",
     "failure_category": "hallucination",
-    "rerun": true
+    "rerun": true,
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent incorrectly reported a perfect match for the job description, despite the CV containing no relevant keywords. The agent also provided improvement suggestions that are not relevant to the job description.",
+      "failure_category": "hallucination"
+    }
   },
   {
     "name": "breaking_very_generic_cv",
@@ -697,9 +762,14 @@
     "jd": "\nData Analyst - Tech Company\nRequired: SQL, Python, Power BI, 3+ years experience\n",
     "label": "good",
     "comments": "",
-    "result": "ERROR: Error code: 402 - {'error': 'You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.'}",
-    "status": "error",
-    "failure_category": ""
+    "result": "## Match Score\n0/100 \u2014 The CV does not match the job requirements due to a lack of relevant technical skills and experience.\n\n## Missing Keywords\n* SQL\n* Python\n* Power BI\n\n## Improvement Suggestions\n1. Add 'SQL' to your skills section to demonstrate database management capabilities\n2. Include 'Python' in your work experience section, such as 'Utilized Python programming language to develop software applications'\n3. Mention 'Power BI' in your skills section to showcase data visualization skills\n4. Consider adding specific examples of data analysis or machine learning projects to your work experience section, highlighting your ability to work with data\n5. Incorporate relevant keywords from the job posting into your professional summary, such as 'Data analysis' or 'Technical skills', to introduce your expertise\n\n## Cover Letter\nI am excited to apply for the Data Analyst role at Tech Company because I am drawn to the opportunity to work with innovative technologies and contribute to data-driven decision making. Although my background may not directly align with the technical requirements, I am eager to learn and grow with a dynamic team.\n\nThroughout my experience working at various companies, I have developed strong communication skills, which I believe are essential for effectively presenting data insights to stakeholders. Additionally, my ability to learn quickly and work collaboratively in a team environment will enable me to adapt to new tools and technologies, such as SQL, Python, and Power BI. While I may not have direct experience with these specific technologies, my transferable skills in problem-solving and analytical thinking can be applied to learn and master them.\n\nI acknowledge that my resume may not fully align with the job requirements, but I am confident that my strong work ethic, fast learning abilities, and teamwork skills can compensate for the gap. I would welcome the opportunity to discuss how my skills can be adapted to fit the needs of the Data Analyst role. I look forward to the chance to meet with you to explore how I can contribute to the success of Tech Company.",
+    "status": "success",
+    "failure_category": "",
+    "judge_result": {
+      "label": "bad",
+      "reasoning": "The agent incorrectly flagged 'SQL', 'Python', and 'Power BI' as missing keywords, despite the candidate mentioning 'I have experience doing things at companies' and 'I am eager to learn and grow with a dynamic team' which implies they are familiar with SQL and Python. The agent also failed to recognize the candidate's mention of 'data analysis' and 'technical skills' in the cover letter.",
+      "failure_category": "phrasing_mismatch"
+    }
   },
   {
     "name": "breaking_future_date_cv",
@@ -713,8 +783,8 @@
     "failure_category": "",
     "judge_result": {
       "label": "bad",
-      "reasoning": "The agent failed to identify the phrasing mismatch in the CV. The CV mentions 'Quantum ML' which is a phrasing mismatch for the required 'Python' skill. Additionally, the agent failed to identify the hallucination in the CV. The CV mentions 'Holographic computing' which is not a required skill in the JD. The agent also failed to provide a correct refusal for the non-CV/JD input in the cover letter.",
-      "failure_category": "hallucination, phrasing_mismatch"
+      "reasoning": "The agent failed to identify the phrasing mismatch in the CV. The CV mentions 'Quantum ML' and 'Neural interfaces' which are related to the JD requirement 'Python, scikit-learn, SQL, AWS'. However, the agent incorrectly identified 'Python, scikit-learn, SQL, AWS' as missing keywords. Additionally, the agent failed to recognize the relevance of the candidate's experience in a senior role and their ability to learn quickly, which is a key skill for the Data Scientist position.",
+      "failure_category": "phrasing_mismatch"
     }
   },
   {
@@ -745,7 +815,7 @@
     "failure_category": "",
     "judge_result": {
       "label": "bad",
-      "reasoning": "The agent failed to identify the missing keywords correctly. The JD requires 'Data Analyst' but the CV has 'An\u00e1lisis de Datos' which is a phrasing mismatch. The agent should have identified 'An\u00e1lisis de Datos' as a match for the JD requirement.",
+      "reasoning": "The agent incorrectly identified 'Data Analyst' as a missing keyword. It is present in the CV, albeit in a different section.",
       "failure_category": "phrasing_mismatch"
     }
   }
