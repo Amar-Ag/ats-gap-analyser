@@ -3,9 +3,17 @@ import sys
 import pdfplumber
 import io
 import re
+import os
 import time
+import logfire
 from pathlib import Path
 from docx import Document
+
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
+logfire.configure()
+
 
 sys.path.append(str(Path(__file__).parent.parent))
 
@@ -81,17 +89,22 @@ def score_display(score: int) -> str:
     if score >= 80:
         color = "#52b788"
         label = "Strong Match"
+        explanation = "Your CV aligns well with this role. Focus on the missing keywords to maximise your chances."
     elif score >= 60:
         color = "#f4a261"
         label = "Moderate Match"
+        explanation = "You meet the core requirements but have some gaps. Address the missing keywords before applying."
     else:
         color = "#e63946"
         label = "Weak Match"
+        explanation = "Significant gaps exist between your CV and this role. Consider whether this is the right role to apply for now."
+    
     return f"""
 <div style='background: #1a1a2e; padding: 20px; border-radius: 10px;
             text-align: center; margin: 10px 0; border: 2px solid {color}'>
     <div style='font-size: 56px; font-weight: bold; color: {color}'>{score}</div>
     <div style='font-size: 20px; color: #aaa'>/100 — {label}</div>
+    <div style='font-size: 14px; color: #888; margin-top: 8px'>{explanation}</div>
 </div>
 """
 
@@ -308,10 +321,14 @@ if st.session_state.show_example:
 
 # --- Analyse ---
 if analyse_button:
-    st.session_state.show_example = False  # clear example when analysing
 
+    st.session_state.show_example = False  # clear example when analysing    
     if not cv_text or not jd_text:
         st.warning("Please provide both your CV and the job description.")
+    elif len(cv_text.strip()) < 100:
+        st.warning("Your CV seems too short. Please paste your full CV text or upload a PDF.")
+    elif len(jd_text.strip()) < 50:
+        st.warning("The job description seems too short. Please paste the full job description.")
     elif st.session_state.analysis_count >= MAX_ANALYSES:
         st.error(f"You've reached the limit of {MAX_ANALYSES} analyses per session. Please refresh to start a new session.")
     else:
@@ -373,3 +390,19 @@ if len(st.session_state.history) > 1:
     for i, h in enumerate(st.session_state.history, 1):
         with st.expander(f"Analysis {i} — Score: {h['score']}"):
             st.markdown(h['result'])
+
+# --- Feedback ---
+if st.session_state.analysis_count > 0:
+    st.divider()
+    st.caption("Was this analysis helpful?")
+    col_up, col_down = st.columns(2)
+    with col_up:
+        if st.button("👍 Yes, helpful", use_container_width=True):
+            logfire.info("user feedback", rating="good", 
+                        session_count=st.session_state.analysis_count)
+            st.success("Thanks for the feedback!")
+    with col_down:
+        if st.button("👎 Not helpful", use_container_width=True):
+            logfire.info("user feedback", rating="bad",
+                        session_count=st.session_state.analysis_count)
+            st.info("Thanks — we'll use this to improve.")
