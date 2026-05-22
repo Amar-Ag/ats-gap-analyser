@@ -3,6 +3,7 @@ import sys
 import pdfplumber
 import io
 import re
+import time
 from pathlib import Path
 from docx import Document
 
@@ -57,8 +58,8 @@ EXAMPLE_RESULT = """## Missing Keywords
 
 ## Improvement Suggestions
 1. Add 'numpy' to your Skills section alongside pandas to match the job description's technical requirements
-2. Include 'logistics' or 'supply chain' context in your Experience section — even mentioning data types you worked with (e.g. customer transaction data, operational data) helps
-3. Consider adding 'Tableau' to your Skills section as an alternative to Power BI to increase keyword coverage
+2. Include 'logistics' or 'supply chain' context in your Experience section
+3. Consider adding 'Tableau' to your Skills section as an alternative to Power BI
 4. Quantify your Power BI dashboard work — mention number of dashboards, users, or business impact
 
 ## Cover Letter
@@ -116,6 +117,60 @@ def make_docx(text: str) -> io.BytesIO:
     doc.save(buf)
     buf.seek(0)
     return buf
+
+
+def extract_cv_essentials(cv_text: str, max_chars: int = 3000) -> str:
+    """Extract most relevant CV sections for ATS analysis."""
+    if len(cv_text) <= max_chars:
+        return cv_text
+
+    lines = cv_text.split('\n')
+
+    section_keywords = {
+        'skills': ['skill', 'technical', 'competenc', 'expertise', 'proficien'],
+        'experience': ['experience', 'employment', 'work history', 'career', 'position'],
+        'education': ['education', 'qualification', 'degree', 'academic'],
+        'summary': ['summary', 'profile', 'objective', 'about'],
+    }
+
+    sections = {}
+    current_section = 'other'
+    current_lines = []
+
+    for line in lines:
+        line_lower = line.lower().strip()
+        matched = False
+        for section, keywords in section_keywords.items():
+            if any(kw in line_lower for kw in keywords) and len(line.strip()) < 50:
+                if current_lines:
+                    sections[current_section] = sections.get(current_section, []) + current_lines
+                current_section = section
+                current_lines = [line]
+                matched = True
+                break
+        if not matched:
+            current_lines.append(line)
+
+    if current_lines:
+        sections[current_section] = sections.get(current_section, []) + current_lines
+
+    priority_order = ['summary', 'skills', 'experience', 'education', 'other']
+    result_parts = []
+    total_chars = 0
+
+    for section in priority_order:
+        if section in sections:
+            section_text = '\n'.join(sections[section])
+            if total_chars + len(section_text) <= max_chars:
+                result_parts.append(section_text)
+                total_chars += len(section_text)
+            else:
+                remaining = max_chars - total_chars
+                if remaining > 200:
+                    result_parts.append(section_text[:remaining])
+                break
+
+    return '\n'.join(result_parts)
 
 
 # --- Session state init ---
@@ -253,16 +308,25 @@ if st.session_state.show_example:
 
 # --- Analyse ---
 if analyse_button:
+    st.session_state.show_example = False  # clear example when analysing
+
     if not cv_text or not jd_text:
         st.warning("Please provide both your CV and the job description.")
     elif st.session_state.analysis_count >= MAX_ANALYSES:
         st.error(f"You've reached the limit of {MAX_ANALYSES} analyses per session. Please refresh to start a new session.")
     else:
         try:
-            with st.spinner("Analysing your CV... this takes about 15-20 seconds"):
+            # extract essentials to avoid TPM limits
+            cv_input = extract_cv_essentials(cv_text, max_chars=3000)
+            jd_input = jd_text[:2000]
+
+            with st.status("Analysing your CV...", expanded=True) as status:
+                st.write("Extracting job requirements...")
                 result = run_agent(
-                    f"Analyse my CV against this job description.\nCV:\n{cv_text}\nJD:\n{jd_text}"
+                    f"Analyse my CV against this job description.\nCV:\n{cv_input}\nJD:\n{jd_input}"
                 )
+                status.update(label="Analysis complete!", state="complete", expanded=False)
+
             st.session_state.analysis_count += 1
 
             st.divider()

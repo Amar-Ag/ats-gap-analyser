@@ -2,6 +2,7 @@ import json
 import os
 import logfire
 import re
+import time
 
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -161,4 +162,5 @@ def run_agent(user_message: str):
                         "tool_call_id": tool_call.id,
                         "content": json.dumps(result)
                     })
+                    time.sleep(2)  # avoid TPM limits
 
