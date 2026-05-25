@@ -10,7 +10,7 @@ load_dotenv(override=True)
 
 from src.agent.agent import run_agent
 
-RESULTS_FILE = 'data/eval_results_results.json'
+RESULTS_FILE = 'data/eval_dataset.json'
 
 RERUN_CATEGORIES = ['wrong_score', 'missed_key_gap']
 
