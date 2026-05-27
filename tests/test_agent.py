@@ -120,7 +120,7 @@ def test_criteria(sample_cv, sample_jd):
         "the response includes a numeric match score between 0 and 100",
         "the response lists at least one specific missing keyword from the job description",
         "the response includes a cover letter addressed to the specific role not a generic template",
-        "the suggestions mention specific skills from the job description such as Tableau or numpy not generic advice"
+        "the suggestions are specific and reference actual skills or experience gaps, not just generic advice like 'add more skills'"
     ]
 
     assert_criteria(result, criteria)
