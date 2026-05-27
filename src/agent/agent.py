@@ -18,7 +18,7 @@ groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # fallback client
 hf_client = OpenAI(
-    api_key=os.getenv("HF_TOKEN"),
+    api_key=os.getenv("HF_TOKEN", "not-set"),
     base_url="https://router.huggingface.co/v1"
 )
 
