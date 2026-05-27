@@ -29,9 +29,10 @@ def save_data(data, file_path):
         json.dump(data, f, indent=2)   
 
 def get_results_path(input_path):
-    """Given an input JSON path, return the corresponding _results.json path."""
     base, ext = os.path.splitext(input_path)
-    return base + "_results" + ext
+    if base.endswith('_results'):
+        return input_path
+    return base + "_dataset" + ext
 
 def find_next_unlabelled(data, start_index):
     """Find the next unlabelled item starting from start_index+1, wrapping around."""

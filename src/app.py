@@ -10,14 +10,13 @@ from pathlib import Path
 from docx import Document
 
 from dotenv import load_dotenv
-load_dotenv(override=True)
-
-logfire.configure()
-
 
 sys.path.append(str(Path(__file__).parent.parent))
-
 from src.agent.agent import run_agent
+
+load_dotenv(override=True)
+
+logfire.configure(token=os.getenv("LOGFIRE_TOKEN"))
 
 # --- Constants ---
 MAX_ANALYSES = 3
