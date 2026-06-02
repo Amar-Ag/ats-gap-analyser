@@ -1,22 +1,22 @@
-import streamlit as st
 import sys
+import os
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
+
+import streamlit as st
 import pdfplumber
 import io
 import re
-import os
 import time
 import logfire
-from pathlib import Path
 from docx import Document
-
 from dotenv import load_dotenv
 
-sys.path.append(str(Path(__file__).parent.parent))
-from src.agent.agent import run_agent
-
 load_dotenv(override=True)
-
 logfire.configure(token=os.getenv("LOGFIRE_TOKEN"))
+
+from src.agent.agent import run_agent
 
 # --- Constants ---
 MAX_ANALYSES = 3
@@ -70,18 +70,18 @@ EXAMPLE_RESULT = """## Missing Keywords
 4. Quantify your Power BI dashboard work — mention number of dashboards, users, or business impact
 
 ## Cover Letter
-I am excited to apply for the Data Analyst position at Logistics Company, as it aligns perfectly with my 3 years of experience in data analysis and my passion for operational analytics.
+Three years building SQL pipelines and Power BI dashboards for ABC Corp's operations team maps directly onto what you're looking for — the main gap is logistics domain experience, which I'd pick up quickly given my background in operational data.
 
-As a Senior Data Analyst at ABC Corp, I have developed strong SQL and Python skills, building complex queries to analyse customer data and creating Power BI dashboards for operational teams. My experience with pandas for data cleaning and ETL pipelines will enable me to work effectively with logistics data from day one.
+At ABC Corp, I built complex SQL queries analysing customer purchasing patterns across 50+ categories, created Power BI dashboards that became the primary reporting tool for the operations team, and automated ETL workflows using Python and pandas. The data problems in logistics aren't fundamentally different from what I've been solving — the domain terminology is what I'd need to learn.
 
-I would welcome the opportunity to discuss how my analytical skills can support your logistics operations. Please feel free to contact me at john@email.com to arrange a conversation.
+Happy to talk through how my experience translates to your freight data needs. You can reach me at john@email.com.
 """
 
-EXAMPLE_COVER_LETTER = """I am excited to apply for the Data Analyst position at Logistics Company, as it aligns perfectly with my 3 years of experience in data analysis and my passion for operational analytics.
+EXAMPLE_COVER_LETTER = """Three years building SQL pipelines and Power BI dashboards for ABC Corp's operations team maps directly onto what you're looking for — the main gap is logistics domain experience, which I'd pick up quickly given my background in operational data.
 
-As a Senior Data Analyst at ABC Corp, I have developed strong SQL and Python skills, building complex queries to analyse customer data and creating Power BI dashboards for operational teams. My experience with pandas for data cleaning and ETL pipelines will enable me to work effectively with logistics data from day one.
+At ABC Corp, I built complex SQL queries analysing customer purchasing patterns across 50+ categories, created Power BI dashboards that became the primary reporting tool for the operations team, and automated ETL workflows using Python and pandas. The data problems in logistics aren't fundamentally different from what I've been solving — the domain terminology is what I'd need to learn.
 
-I would welcome the opportunity to discuss how my analytical skills can support your logistics operations. Please feel free to contact me at john@email.com to arrange a conversation."""
+Happy to talk through how my experience translates to your freight data needs. You can reach me at john@email.com."""
 
 
 def score_display(score: int) -> str:
@@ -97,7 +97,7 @@ def score_display(score: int) -> str:
         color = "#e63946"
         label = "Weak Match"
         explanation = "Significant gaps exist between your CV and this role. Consider whether this is the right role to apply for now."
-    
+
     return f"""
 <div style='background: #1a1a2e; padding: 20px; border-radius: 10px;
             text-align: center; margin: 10px 0; border: 2px solid {color}'>
@@ -137,7 +137,6 @@ def extract_cv_essentials(cv_text: str, max_chars: int = 3000) -> str:
         return cv_text
 
     lines = cv_text.split('\n')
-
     section_keywords = {
         'skills': ['skill', 'technical', 'competenc', 'expertise', 'proficien'],
         'experience': ['experience', 'employment', 'work history', 'career', 'position'],
@@ -185,6 +184,29 @@ def extract_cv_essentials(cv_text: str, max_chars: int = 3000) -> str:
     return '\n'.join(result_parts)
 
 
+def render_result(result: str):
+    """Render agent result with score display and cover letter actions."""
+    score_match = re.search(r'(\d+)/100', result)
+    if score_match:
+        score = int(score_match.group(1))
+        st.markdown(score_display(score), unsafe_allow_html=True)
+
+    st.markdown(result)
+
+    cover_match = re.search(r'## Cover Letter\n(.*?)(?=##|$)', result, re.DOTALL)
+    if cover_match:
+        cover_text = cover_match.group(1).strip()
+        st.download_button(
+            "📥 Download Cover Letter as Word (.docx)",
+            data=make_docx(cover_text),
+            file_name="cover_letter.docx",
+            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            key=f"dl_{hash(cover_text)}"
+        )
+        st.caption("Or select all and copy:")
+        st.markdown(cover_letter_copy_box(cover_text), unsafe_allow_html=True)
+
+
 # --- Session state init ---
 if 'analysis_count' not in st.session_state:
     st.session_state.analysis_count = 0
@@ -194,6 +216,10 @@ if 'history' not in st.session_state:
     st.session_state.history = []
 if 'show_example' not in st.session_state:
     st.session_state.show_example = False
+if 'show_feedback_form' not in st.session_state:
+    st.session_state.show_feedback_form = False
+if 'current_result' not in st.session_state:
+    st.session_state.current_result = None
 
 # --- Page config ---
 st.set_page_config(layout="wide", page_title="ATS Gap Analyser")
@@ -209,6 +235,8 @@ with st.sidebar:
     """)
     st.divider()
     st.warning(f"⚠️ Demo limit: {MAX_ANALYSES} analyses per session")
+    st.divider()
+    st.caption("🔒 Your CV and job description are never stored or logged.")
     st.caption("Built with Groq + llama-3.3-70b-versatile")
 
 # --- Header ---
@@ -222,7 +250,7 @@ col1, col2 = st.columns(2)
 with col1:
     st.subheader("Your CV")
     uploaded_file = st.file_uploader("Upload CV as PDF", type="pdf")
-
+  
     if uploaded_file:
         with pdfplumber.open(io.BytesIO(uploaded_file.read())) as pdf:
             cv_text = "\n".join(page.extract_text() or "" for page in pdf.pages)
@@ -244,6 +272,8 @@ with col2:
         "Paste job posting URL (optional)",
         placeholder="https://company.com/careers/job-123"
     )
+    # invisible spacer to match URL input height in JD column
+    st.markdown("<div style='height: 29px'></div>", unsafe_allow_html=True)
 
     if jd_url:
         if st.button("📥 Fetch from URL"):
@@ -271,14 +301,13 @@ with col2:
                 st.session_state.jd_text = fetched_text
                 st.success(f"Fetched {len(fetched_text)} characters")
             except Exception as e:
-                st.error(f"Could not fetch URL: {str(e)}")
+                st.error("Could not fetch this URL — some career portals (Oracle, Workday, SAP) block automated fetching. Please paste the job description text directly.")
 
-    jd_height = 200 if jd_url else 250
     jd_text = st.text_area(
         "JD",
         value=st.session_state.get('jd_text', ''),
         placeholder="Or paste the job description here...",
-        height=jd_height,
+        height=250,  # always 250, not conditional
         label_visibility="collapsed"
     )
 
@@ -308,20 +337,21 @@ if st.session_state.show_example:
 
     st.markdown(score_display(75), unsafe_allow_html=True)
     st.markdown(EXAMPLE_RESULT)
-
     st.download_button(
         "📥 Download Cover Letter as Word (.docx)",
         data=make_docx(EXAMPLE_COVER_LETTER),
         file_name="cover_letter.docx",
-        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        key="example_dl"
     )
     st.caption("Or select all and copy:")
     st.markdown(cover_letter_copy_box(EXAMPLE_COVER_LETTER), unsafe_allow_html=True)
 
 # --- Analyse ---
 if analyse_button:
+    st.session_state.show_example = False
+    st.session_state.current_result = None
 
-    st.session_state.show_example = False  # clear example when analysing    
     if not cv_text or not jd_text:
         st.warning("Please provide both your CV and the job description.")
     elif len(cv_text.strip()) < 100:
@@ -332,7 +362,6 @@ if analyse_button:
         st.error(f"You've reached the limit of {MAX_ANALYSES} analyses per session. Please refresh to start a new session.")
     else:
         try:
-            # extract essentials to avoid TPM limits
             cv_input = extract_cv_essentials(cv_text, max_chars=3000)
             jd_input = jd_text[:2000]
 
@@ -344,33 +373,9 @@ if analyse_button:
                 status.update(label="Analysis complete!", state="complete", expanded=False)
 
             st.session_state.analysis_count += 1
+            st.session_state.current_result = result
 
-            st.divider()
-            st.subheader(f"Analysis {st.session_state.analysis_count}/{MAX_ANALYSES}")
-
-            # visual score
             score_match = re.search(r'(\d+)/100', result)
-            if score_match:
-                score = int(score_match.group(1))
-                st.markdown(score_display(score), unsafe_allow_html=True)
-
-            st.markdown(result)
-
-            # cover letter download + copy
-            cover_match = re.search(r'## Cover Letter\n(.*?)(?=##|$)', result, re.DOTALL)
-            if cover_match:
-                cover_text = cover_match.group(1).strip()
-
-                st.download_button(
-                    "📥 Download Cover Letter as Word (.docx)",
-                    data=make_docx(cover_text),
-                    file_name="cover_letter.docx",
-                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                )
-                st.caption("Or select all and copy:")
-                st.markdown(cover_letter_copy_box(cover_text), unsafe_allow_html=True)
-
-            # save to history
             st.session_state.history.append({
                 'score': score_match.group(0) if score_match else 'N/A',
                 'result': result
@@ -382,13 +387,19 @@ if analyse_button:
             else:
                 st.error(f"Something went wrong: {str(e)}")
 
+# --- Current result — rendered outside analyse block so download doesn't reset it ---
+if st.session_state.current_result:
+    st.divider()
+    st.subheader(f"Analysis {st.session_state.analysis_count}/{MAX_ANALYSES}")
+    render_result(st.session_state.current_result)
+
 # --- History ---
 if len(st.session_state.history) > 1:
     st.divider()
     st.subheader("Previous Analyses")
-    for i, h in enumerate(st.session_state.history, 1):
+    for i, h in enumerate(st.session_state.history[:-1], 1):
         with st.expander(f"Analysis {i} — Score: {h['score']}"):
-            st.markdown(h['result'])
+            render_result(h['result'])
 
 # --- Feedback ---
 if st.session_state.analysis_count > 0:
@@ -397,11 +408,26 @@ if st.session_state.analysis_count > 0:
     col_up, col_down = st.columns(2)
     with col_up:
         if st.button("👍 Yes, helpful", use_container_width=True):
-            logfire.info("user feedback", rating="good", 
+            logfire.info("user feedback", rating="good",
                         session_count=st.session_state.analysis_count)
-            st.success("Thanks for the feedback!")
+            st.success("Thanks!")
     with col_down:
         if st.button("👎 Not helpful", use_container_width=True):
-            logfire.info("user feedback", rating="bad",
+            st.session_state.show_feedback_form = True
+
+    if st.session_state.show_feedback_form:
+        feedback_reason = st.selectbox(
+            "What was wrong?",
+            ['', 'Score seems off', 'Missing keywords wrong',
+             'Suggestions not relevant', 'Cover letter too generic',
+             'Cover letter had wrong info', 'Other']
+        )
+        feedback_text = st.text_input("Any other comments? (optional)")
+        if st.button("Submit feedback"):
+            logfire.info("user feedback",
+                        rating="bad",
+                        reason=feedback_reason,
+                        comment=feedback_text[:200] if feedback_text else "",
                         session_count=st.session_state.analysis_count)
+            st.session_state.show_feedback_form = False
             st.info("Thanks — we'll use this to improve.")

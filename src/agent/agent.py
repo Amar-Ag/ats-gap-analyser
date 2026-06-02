@@ -32,7 +32,7 @@ ats_tools = ATSTools(client, index)
 tools = get_instance_tools(ats_tools)
 
 def run_tool(name: str, args: dict):
-    with logfire.span(f"tool:{name}", args=str(args)[:200]):
+    with logfire.span(f"tool:{name}"):
         method = getattr(ats_tools, name, None)
         if method:
             result = method(**args)
