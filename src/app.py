@@ -234,6 +234,14 @@ with st.sidebar:
 4. Get your match score, gaps, and a tailored cover letter
     """)
     st.divider()
+    language = st.selectbox(
+        "Cover letter language",
+        ["English", "Dutch (Nederlands)", "French (Français)", "German (Deutsch)",
+         "Spanish (Español)", "Italian (Italiano)", "Portuguese (Português)"],
+        index=0,
+        help="Analysis stays in English — only the cover letter changes"
+    )
+    st.divider()
     st.warning(f"⚠️ Demo limit: {MAX_ANALYSES} analyses per session")
     st.divider()
     st.caption("🔒 Your CV and job description are never stored or logged.")
@@ -368,8 +376,8 @@ if analyse_button:
             with st.status("Analysing your CV...", expanded=True) as status:
                 st.write("Extracting job requirements...")
                 result = run_agent(
-                    f"Analyse my CV against this job description.\nCV:\n{cv_input}\nJD:\n{jd_input}"
-                )
+                        f"Analyse my CV against this job description.\nCV:\n{cv_input}\nJD:\n{jd_input}\nWrite the cover letter in: {language}"
+                    )
                 status.update(label="Analysis complete!", state="complete", expanded=False)
 
             st.session_state.analysis_count += 1
