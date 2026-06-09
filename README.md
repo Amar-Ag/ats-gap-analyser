@@ -22,7 +22,8 @@ Job seekers apply for roles and hear nothing back. They don't know if their CV f
 - 🎯 **Match score** (0-100) with colour-coded visual indicator
 - 🔍 **Missing keywords** — only genuinely absent required skills
 - 💡 **Improvement suggestions** — grounded in a 50-document ATS best practices knowledge base
-- ✉️ **Tailored cover letter** — downloadable as Word (.docx)
+- ✉️ **Tailored cover letter** — downloadable as Word (.docx), available in 7 languages
+- 🔒 **Privacy first** — your CV and JD are never stored or logged
 
 ---
 
@@ -67,6 +68,7 @@ Final Summary
 | UI | Streamlit (deployed on Streamlit Cloud) |
 | Packaging | uv + pyproject.toml |
 | Environment | VS Code Dev Container + Docker |
+| CI/CD | GitHub Actions |
 
 ---
 
@@ -128,7 +130,7 @@ scripts/
 data/
 ├── ats_knowledge.json            # 50 ATS best practice documents
 ├── eval_results.json             # Raw batch evaluation results
-└── eval_results_results.json     # Labeled dataset with judge results
+└── eval_dataset.json             # Labeled dataset with judge results
 ```
 
 ---
@@ -176,6 +178,8 @@ make merge   # Merge evaluation results
 - Groq occasionally produces malformed tool calls — handled with a regex recovery handler
 - Knowledge base is static — expanding it with domain-specific content will improve suggestion quality
 - URL fetching works for direct career pages but not LinkedIn (blocked) or Indeed (rate limited)
+- Cover letter language selector supports 7 languages — quality varies by language
+- Some enterprise career portals (Oracle, Workday) block URL fetching — paste JD text directly
 
 ---
 
