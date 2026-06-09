@@ -30,6 +30,7 @@ Job seekers apply for roles and hear nothing back. They don't know if their CV f
 ## Architecture
 
 The agent orchestrates four tools in sequence using a custom tool-calling loop:
+```
 
 User Input (CV + JD)
 │
@@ -47,6 +48,7 @@ generate_cover_letter  ─────►  Tailored 3-paragraph cover letter
 │
 ▼
 Final Summary
+```
 
 **Key engineering decisions:**
 - OR conditions in JDs ("Power BI or Tableau") are extracted as alternatives and handled correctly in scoring
